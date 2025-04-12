@@ -74,7 +74,18 @@ class linkedlist {
         }
     }
 
-    public void getValueAtIndex(int index) {
+    public linkedlist.Node get(int index) {
+        if (length == 0) {
+            System.out.println("LinkedList is empty !");
+        }
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    public void setValueAtIndex(int index, int value) {
         if (length == 0) {
             System.out.println("LinkedList is empty !");
         } else {
@@ -84,8 +95,50 @@ class linkedlist {
                 temp = temp.next;
                 i++;
             }
-            System.out.println("Value at index " + index + " is :" + temp.value);
+            temp.value = value;
+            System.out.println("setted Value:" + temp.value + " at index " + index);
         }
+    }
+
+    public boolean insertValueAtIndex(int index, int value) {
+        if (index < 0 || index > length) {
+            System.out.println("couldn't insert at the index: " + index);
+            return false;
+        }
+        if (index == 0) {
+            prepend(value);
+            return true;
+        }
+        if (index == length) {
+            append(value);
+            return true;
+        }
+        Node temp = get(index - 1);
+        Node newnNode = new Node(value);
+        newnNode.next = temp.next;
+        temp.next = newnNode;
+        length++;
+        return true;
+    }
+
+    public boolean removeValueAtIndex(int index) {
+        if (index < 0 || index > length) {
+            System.out.println("couldn't remove the value at the index: " + index);
+            return false;
+        }
+        if (index == 0) {
+            RemoveFirst();
+            return true;
+        }
+        if (index == length) {
+            RemoveLast();
+            return true;
+        }
+        Node presentNode = get(index);
+        Node previousNode = get(index - 1);
+        previousNode.next = presentNode.next;
+        length--;
+        return true;
     }
 
     public void RemoveFirst() {
@@ -97,12 +150,31 @@ class linkedlist {
         }
     }
 
+    public void reverse() {
+        if (length == 0) {
+            System.out.println("LinkedList is empty !");
+        } else {
+            Node temp = head;
+            head = tail;
+            tail = temp;
+            Node before = null;
+            Node after = temp.next;
+            for (int i = 0; i < length; i++) {
+                after = temp.next;
+                temp.next = before;
+                before = temp;
+                temp = after;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         linkedlist obj = new linkedlist(4);
         obj.append(10);
         obj.append(20);
         obj.append(30);
         obj.print();
-        obj.getValueAtIndex(3);
+        obj.reverse();
+        obj.print();
     }
 }

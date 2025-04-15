@@ -95,7 +95,6 @@ public class RemoveDuplicates {
             }
             front = front.next;
         }
-
     }
 
     public static void main(String[] args) {

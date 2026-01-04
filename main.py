@@ -1,12 +1,30 @@
 class solution:
-    def rotateMatrix(self, matrix):
-        for i in range(0, len(matrix)):
-            for j in range(i + 1, len(matrix[0])):
-                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
-            matrix[i].reverse()
+    def rotateMatrix(self, s):
+        result = []
+        balance = 0
+
+        for ch in s:
+            if ch == "(":
+                balance += 1
+                result.append(ch)
+            elif ch == ")":
+                if balance > 0:
+                    balance -= 1
+                    result.append(ch)
+            else:
+                result.append(ch)
+
+        final = []
+        for ch in reversed(result):
+            if ch == "(" and balance > 0:
+                balance -= 1
+            else:
+                final.append(ch)
+
+        return "".join(reversed(final))
 
 
-matrix = [[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]]
+s = "a)b(c)d"
 c = solution()
-c.rotateMatrix(matrix)
-print(matrix)
+r = c.rotateMatrix(s)
+print(r)

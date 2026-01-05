@@ -1,30 +1,17 @@
 class solution:
-    def rotateMatrix(self, s):
+    def spiralMatrix(self, matrix):
         result = []
-        balance = 0
-
-        for ch in s:
-            if ch == "(":
-                balance += 1
-                result.append(ch)
-            elif ch == ")":
-                if balance > 0:
-                    balance -= 1
-                    result.append(ch)
+        i = j = 0
+        while i < len(matrix):
+            result.append(matrix[i][j])
+            if j < len(matrix[0]) - 1:
+                j += 1
             else:
-                result.append(ch)
+                i += 1
 
-        final = []
-        for ch in reversed(result):
-            if ch == "(" and balance > 0:
-                balance -= 1
-            else:
-                final.append(ch)
-
-        return "".join(reversed(final))
+        print(result)
 
 
-s = "a)b(c)d"
+m = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
 c = solution()
-r = c.rotateMatrix(s)
-print(r)
+c.spiralMatrix(m)

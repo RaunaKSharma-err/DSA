@@ -1,27 +1,30 @@
 class solution:
-    def spiralMatrix(self, matrix):
+    def threeSum(self, nums):
         result = []
-        top = left = 0
-        bottom, right = len(matrix) - 1, len(matrix[0]) - 1
+        nums.sort()
+        for i in range(len(nums)):
+            if i != 0 and nums[i] == nums[i - 1]:
+                continue
+            j = i + 1
+            k = len(nums) - 1
+            while j < k:
+                totalSum = nums[i] + nums[j] + nums[k]
+                if totalSum < 0:
+                    j += 1
+                elif totalSum > 0:
+                    k -= 1
+                else:
+                    result.append([nums[i], nums[j], nums[k]])
+                    j += 1
+                    k -= 1
+                    while j < k and nums[j] == nums[j - 1]:
+                        j += 1
+                    while k > j and nums[k] == nums[k + 1]:
+                        k -= 1
+        return result
 
-        while top <= bottom and left <= right:
-            for i in range(left, right + 1):
-                result.append(matrix[top][i])
-            top += 1
-            for i in range(top, bottom + 1):
-                result.append(matrix[i][right])
-            right -= 1
-            if top <= bottom:
-                for i in range(right, left - 1, -1):
-                    result.append(matrix[bottom][i])
-                bottom -= 1
-            if left <= right:
-                for i in range(bottom, top - 1, -1):
-                    result.append(matrix[i][left])
-                left += 1
-        print(result)
 
-
-m = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
+m = [0, 0, 0, 0]
 c = solution()
-c.spiralMatrix(m)
+x = c.threeSum(m)
+print(x)

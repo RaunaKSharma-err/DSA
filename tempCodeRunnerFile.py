@@ -1,3 +1,2 @@
-n = 5
-for i in range(n):
-    print(i)
+
+                    while l > k and nums[l] == nums[l + 1]:

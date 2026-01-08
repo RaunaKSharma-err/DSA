@@ -1,30 +1,27 @@
 class solution:
-    def threeSum(self, nums):
+    def threeSum(self, nums, target):
         result = []
-        nums.sort()
-        for i in range(len(nums)):
-            if i != 0 and nums[i] == nums[i - 1]:
-                continue
-            j = i + 1
-            k = len(nums) - 1
-            while j < k:
-                totalSum = nums[i] + nums[j] + nums[k]
-                if totalSum < 0:
-                    j += 1
-                elif totalSum > 0:
-                    k -= 1
-                else:
-                    result.append([nums[i], nums[j], nums[k]])
-                    j += 1
-                    k -= 1
-                    while j < k and nums[j] == nums[j - 1]:
-                        j += 1
-                    while k > j and nums[k] == nums[k + 1]:
-                        k -= 1
+        for i in range(0, len(nums)):
+            for j in range(i + 1, len(nums)):
+                for k in range(j + 1, len(nums)):
+                    for l in range(k + 1, len(nums)):
+                        if (
+                            nums[i] + nums[j] + nums[k] + nums[l] == target
+                            and i != j
+                            and i != k
+                            and i != l
+                            and j != k
+                            and j != l
+                            and k != l
+                        ):
+                            temp = [nums[i], nums[j], nums[k], nums[l]]
+                            temp.sort()
+                            if temp not in result:
+                                result.append(temp)
         return result
 
 
-m = [0, 0, 0, 0]
+m = [2, 2, 2, 2, 2]
 c = solution()
-x = c.threeSum(m)
+x = c.threeSum(m, 8)
 print(x)

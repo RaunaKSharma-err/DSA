@@ -1,5 +1,5 @@
 class solution:
-    def cielthefloor(self, nums, target):
+    def findTheElmentInTheRotatedArray(self, nums, target):
         low = 0
         high = len(nums) - 1
         if target <= nums[len(nums) - 1]:
@@ -22,5 +22,5 @@ class solution:
 
 nums = [11, 15, 20, 1, 4, 5, 6, 8, 9, 10]
 c = solution()
-x = c.cielthefloor(nums, 20)
+x = c.findTheElmentInTheRotatedArray(nums, 20)
 print(x)

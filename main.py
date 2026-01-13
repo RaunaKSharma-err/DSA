@@ -20,7 +20,7 @@ class solution:
         return -1
 
 
-nums = [11, 15, 20, 1, 4, 5, 6, 8, 9, 10]
+nums = [10, 11, 11, 12, 12, 13, 13, 13, 1, 2, 3, 4]
 c = solution()
-x = c.findTheElmentInTheRotatedArray(nums, 20)
+x = c.findTheElmentInTheRotatedArray(nums, 13)
 print(x)

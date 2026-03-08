@@ -90,6 +90,16 @@ class singlyLinkedList:
             curr = front
         self.head = prev
 
+    def detectCycleInLinkedList(self):
+        fast = self.head
+        slow = fast
+        while fast is not None and fast.next is not None:
+            fast = fast.next.next
+            slow = slow.next
+            if slow == fast:
+                return True
+        return False
+
 
 obj = singlyLinkedList()
 obj.append(3)

@@ -80,12 +80,21 @@ class singlyLinkedList:
             slow = slow.next
         return slow.val
 
+    def reverseLinkedList(self):
+        curr = self.head
+        prev = None
+        while curr is not None:
+            front = curr.next
+            curr.next = prev
+            prev = curr
+            curr = front
+        self.head = prev
+
 
 obj = singlyLinkedList()
 obj.append(3)
 obj.append(4)
 obj.append(5)
 obj.append(6)
-a = obj.middleNode()
+obj.reverseLinkedList()
 obj.traverse()
-print(a)

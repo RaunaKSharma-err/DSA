@@ -72,6 +72,12 @@ class singlyLinkedList:
                 print(curr.val)
                 curr = curr.next
 
+    def circularLinkedList(self):
+        curr = self.head
+        while curr.next is not None:
+            curr = curr.next
+        curr.next = self.head.next
+
     def middleNode(self):
         fast = self.head
         slow = self.head
@@ -93,18 +99,29 @@ class singlyLinkedList:
     def detectCycleInLinkedList(self):
         fast = self.head
         slow = fast
-        while fast is not None and fast.next is not None:
+        while fast and fast.next:
             fast = fast.next.next
             slow = slow.next
             if slow == fast:
-                return True
-        return False
+                slow = self.head
+                while slow != fast:
+                    slow = slow.next
+                    fast = fast.next
+                return slow
+        return None
 
 
 obj = singlyLinkedList()
-obj.append(3)
-obj.append(4)
 obj.append(5)
+obj.append(9)
+obj.append(1)
+obj.append(7)
 obj.append(6)
-obj.reverseLinkedList()
-obj.traverse()
+obj.append(1)
+obj.append(9)
+obj.append(2)
+obj.append(8)
+obj.circularLinkedList()
+a = obj.detectCycleInLinkedList()
+print(a)
+# obj.traverse()

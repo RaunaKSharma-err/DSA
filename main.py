@@ -128,6 +128,20 @@ class singlyLinkedList:
                 return count
         return None
 
+    def oddEvenLinkedList(self):
+        if self.head is None or self.head.next is None:
+            return self.head
+        odd = self.head
+        even = self.head.next
+        evenHead = even
+        while odd.next and even.next:
+            odd.next = even.next
+            odd = odd.next
+            even.next = odd.next
+            even = even.next
+        odd.next = evenHead
+        return self.head
+
 
 obj = singlyLinkedList()
 obj.append(5)
@@ -139,7 +153,8 @@ obj.append(1)
 obj.append(9)
 obj.append(2)
 obj.append(8)
-obj.circularLinkedList()
-a = obj.detectCycleLength()
-print(a)
-# obj.traverse()
+obj.append(0)
+obj.append(7)
+obj.traverse()
+obj.oddEvenLinkedList()
+obj.traverse()

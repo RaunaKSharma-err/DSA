@@ -110,6 +110,24 @@ class singlyLinkedList:
                 return slow
         return None
 
+    def detectCycleLength(self):
+        fast = self.head
+        slow = fast
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            if slow == fast:
+                slow = self.head
+                while slow != fast:
+                    slow = slow.next
+                    fast = fast.next
+                count = 0
+                while fast.next != slow:
+                    fast = fast.next
+                    count += 1
+                return count
+        return None
+
 
 obj = singlyLinkedList()
 obj.append(5)
@@ -122,6 +140,6 @@ obj.append(9)
 obj.append(2)
 obj.append(8)
 obj.circularLinkedList()
-a = obj.detectCycleInLinkedList()
+a = obj.detectCycleLength()
 print(a)
 # obj.traverse()

@@ -142,19 +142,31 @@ class singlyLinkedList:
         odd.next = evenHead
         return self.head
 
+    def removeNthNode(self, n):
+        slow = self.head
+        fast = self.head
+        for _ in range(n):
+            fast = fast.next
+        if fast == None:
+            return self.head.next
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
+        slow.next = slow.next.next
+        return self.head
+
 
 obj = singlyLinkedList()
-obj.append(5)
-obj.append(9)
 obj.append(1)
-obj.append(7)
-obj.append(6)
-obj.append(1)
-obj.append(9)
-obj.append(2)
-obj.append(8)
-obj.append(0)
-obj.append(7)
+# obj.append(2)
+# obj.append(3)
+# obj.append(4)
+# obj.append(5)
+# obj.append(1)
+# obj.append(9)
+# obj.append(2)
+# obj.append(8)
 obj.traverse()
-obj.oddEvenLinkedList()
+a = obj.removeNthNode(1)
+print("value:", a)
 obj.traverse()

@@ -58,5 +58,21 @@ obj.append(1)
 obj.append(2)
 obj.append(3)
 obj.insertAtHead(0)
-obj.insertAt(9,2)
+obj.insertAt(9, 2)
 obj.traverse()
+
+
+def checkParanthesis(string: str):
+    stack = []
+    pairs = {")": "(", "}": "{", "]": "["}
+    for i in string:
+        if i in "({[":
+            stack.append(i)
+        elif i in ")}]":
+            if not stack or stack[-1] != pairs[i]:
+                return False
+        return len(stack) == 0
+
+
+a = checkParanthesis("([)]")
+print(a)

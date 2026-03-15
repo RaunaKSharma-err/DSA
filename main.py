@@ -53,14 +53,11 @@ class solution:
             curr.prev = newNode
 
 
-obj = solution()
-obj.append(1)
-obj.append(2)
-obj.append(3)
-obj.insertAtHead(0)
-obj.insertAt(9, 2)
-obj.traverse()
-
+l1 = solution()
+l1.append(1)
+l1.append(2)
+l1.append(3)
+l1.traverse()
 
 def checkParanthesis(string: str):
     stack = []
@@ -75,4 +72,21 @@ def checkParanthesis(string: str):
 
 
 a = checkParanthesis("([)]")
+print(a)
+
+
+def lastWordLength(str):
+    count = 0
+    for i in range(len(str) - 1, -1, -1):
+        if str[i] == " " and count < 1:
+            continue
+        elif str[i] != " ":
+            count += 1
+        else:
+            return count
+    return count
+
+
+str = " a"
+a = lastWordLength(str)
 print(a)

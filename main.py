@@ -1,92 +1,87 @@
-class node:
-    def __init__(self, val):
-        self.val = val
-        self.next = None
-        self.prev = None
+# class node:
+#     def __init__(self, val):
+#         self.val = val
+#         self.next = None
+#         self.prev = None
 
 
-class solution:
-    def __init__(self):
-        self.head = None
+# class solution:
+#     def __init__(self):
+#         self.head = None
 
-    def append(self, val):
-        newNode = node(val)
-        if self.head == None:
-            self.head = newNode
-        else:
-            curr = self.head
-            while curr.next:
-                curr = curr.next
-            curr.next = newNode
-            newNode.prev = curr
+#     def append(self, val):
+#         newNode = node(val)
+#         if self.head == None:
+#             self.head = newNode
+#         else:
+#             curr = self.head
+#             while curr.next:
+#                 curr = curr.next
+#             curr.next = newNode
+#             newNode.prev = curr
 
-    def insertAtHead(self, val):
-        if self.head == None:
-            newNode = node(val)
-            self.head = newNode
-        else:
-            curr = self.head
-            newNode = node(val)
-            self.head = newNode
-            newNode.next = curr
-            curr.prev = newNode
+#     def insertAtHead(self, val):
+#         if self.head == None:
+#             newNode = node(val)
+#             self.head = newNode
+#         else:
+#             curr = self.head
+#             newNode = node(val)
+#             self.head = newNode
+#             newNode.next = curr
+#             curr.prev = newNode
 
-    def traverse(self):
-        curr = self.head
-        print("nodes :")
-        while curr:
-            print(curr.val)
-            curr = curr.next
+#     def traverse(self):
+#         curr = self.head
+#         print("nodes :")
+#         while curr:
+#             print(curr.val)
+#             curr = curr.next
 
-    def insertAt(self, val, n):
-        newNode = node(val)
-        if self.head == None:
-            self.head = newNode
-        else:
-            curr = self.head
-            while n > 1 and curr.next:
-                curr = curr.next
-                n -= 1
-            temp = curr.prev
-            temp.next = newNode
-            newNode.next = curr
-            curr.prev = newNode
-
-
-l1 = solution()
-l1.append(1)
-l1.append(2)
-l1.append(3)
-l1.traverse()
-
-def checkParanthesis(string: str):
-    stack = []
-    pairs = {")": "(", "}": "{", "]": "["}
-    for i in string:
-        if i in "({[":
-            stack.append(i)
-        elif i in ")}]":
-            if not stack or stack[-1] != pairs[i]:
-                return False
-        return len(stack) == 0
+#     def insertAt(self, val, n):
+#         newNode = node(val)
+#         if self.head == None:
+#             self.head = newNode
+#         else:
+#             curr = self.head
+#             while n > 1 and curr.next:
+#                 curr = curr.next
+#                 n -= 1
+#             temp = curr.prev
+#             temp.next = newNode
+#             newNode.next = curr
+#             curr.prev = newNode
 
 
-a = checkParanthesis("([)]")
-print(a)
+# l1 = solution()
+# l1.append(1)
+# l1.append(2)
+# l1.append(3)
+# l1.traverse()
+# l2 = solution()
+# l2.append(1)
+# l2.append(2)
+# l2.append(3)
+# l2.traverse()
 
 
-def lastWordLength(str):
-    count = 0
-    for i in range(len(str) - 1, -1, -1):
-        if str[i] == " " and count < 1:
-            continue
-        elif str[i] != " ":
-            count += 1
-        else:
-            return count
-    return count
+# def mergeSortedArray(l1, l2):
+#     curr1 = l1
+#     curr2 = l2
+#     while curr1 and curr2:
+#         if curr1.val == curr2.val :
+#             temp = curr1
+
+#         curr1 = curr1.next
 
 
-str = " a"
-a = lastWordLength(str)
+# mergeSortedArray(l1.head, l2.head)
+
+
+def addInteger(num):
+    return [1] + num
+
+
+num = [1, 2, 3]
+a = addInteger(num)
 print(a)

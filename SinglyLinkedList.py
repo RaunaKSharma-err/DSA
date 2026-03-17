@@ -155,18 +155,24 @@ class singlyLinkedList:
         slow.next = slow.next.next
         return self.head
 
+    def removeDuplicates(self):
+        curr = self.head
+        while curr and curr.next:
+            if curr.val == curr.next.val:
+                curr.next = curr.next.next
+            else:
+                curr = curr.next
+        return self.head
 
-obj = singlyLinkedList()
-obj.append(1)
-# obj.append(2)
-# obj.append(3)
-# obj.append(4)
-# obj.append(5)
-# obj.append(1)
-# obj.append(9)
-# obj.append(2)
-# obj.append(8)
-obj.traverse()
-a = obj.removeNthNode(1)
-print("value:", a)
-obj.traverse()
+l1 = singlyLinkedList()
+l1.append(1)
+l1.append(1)
+l1.append(2)
+l1.append(2)
+l1.append(3)
+l1.append(3)
+l1.append(3)
+l1.append(4)
+l1.append(4)
+l1.removeDuplicates()
+l1.traverse()

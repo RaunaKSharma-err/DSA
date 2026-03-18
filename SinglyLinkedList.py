@@ -176,3 +176,4 @@ l1.append(4)
 l1.append(4)
 l1.removeDuplicates()
 l1.traverse()
+

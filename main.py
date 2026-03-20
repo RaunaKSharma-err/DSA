@@ -62,14 +62,57 @@ class solution:
         if temp:
             self.head = temp.prev
 
+    def removeOccurance(self, n):
+        curr = self.head
+        while curr:
+            if n == curr.val and curr == self.head:
+                self.head = curr.next
+            elif n == curr.val:
+                if curr.next is None:
+                    curr = curr.prev
+                    curr.next.prev = None
+                    curr.next = None
+                else:
+                    temp = curr.prev
+                    temp.next = curr.next
+                    curr.next.prev = temp
+            curr = curr.next
 
-dll = solution()
-dll.append(1)
-dll.append(2)
-dll.append(3)
-dll.append(4)
-dll.append(5)
-dll.append(6)
-dll.traverse()
-dll.reverseDLinkedList()
-dll.traverse()
+
+dll1 = solution()
+dll1.append(9)
+dll1.append(9)
+dll1.append(9)
+dll1.append(9)
+dll1.append(9)
+dll1.append(9)
+dll1.append(9)
+dll1.traverse()
+
+dll2 = solution()
+dll2.append(9)
+dll2.append(9)
+dll2.append(9)
+dll2.append(9)
+dll2.traverse()
+
+
+def addTwoNumbers(l1, l2):
+    dummy = node(0)
+    curr = dummy
+    carry = 0
+    while l1 or l2 or carry:
+        val1 = l1.val if l1 else 0
+        val2 = l2.val if l2 else 0
+        total = val1 + val2 + carry
+        carry = total // 10
+        curr.next = node(total % 10)
+        curr = curr.next
+        if l1:
+            l1 = l1.next
+        if l2:
+            l2 = l2.next
+    return dummy.next
+
+
+a = addTwoNumbers(dll1.head, dll2.head)

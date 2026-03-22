@@ -63,11 +63,12 @@ class singlyLinkedList:
             if found == False:
                 print("value not found in the linkedlist")
 
-    def traverse(self):
-        if self.head == None:
+    def traverse(self, n):
+        if n == None:
             print("linkedlist is empty")
         else:
-            curr = self.head
+            curr = n
+            print("nodes:")
             while curr is not None:
                 print(curr.val)
                 curr = curr.next
@@ -164,16 +165,53 @@ class singlyLinkedList:
                 curr = curr.next
         return self.head
 
+    def addTwoNumbers(l1, l2):
+        dummy = node(0)
+        curr = dummy
+        carry = 0
+        while l1 or l2 or carry:
+            val1 = l1.val if l1 else 0
+            val2 = l2.val if l2 else 0
+            total = val1 + val2 + carry
+            carry = total // 10
+            curr.next = node(total % 10)
+            curr = curr.next
+            if l1:
+                l1 = l1.next
+            if l2:
+                l2 = l2.next
+        return dummy.next
+
+
 l1 = singlyLinkedList()
 l1.append(1)
-l1.append(1)
 l1.append(2)
-l1.append(2)
-l1.append(3)
-l1.append(3)
-l1.append(3)
 l1.append(4)
-l1.append(4)
-l1.removeDuplicates()
-l1.traverse()
+# l1.traverse()
+l2 = singlyLinkedList()
+l2.append(1)
+l2.append(3)
+l2.append(4)
+l2.append(4)
+l2.append(5)
+l2.append(6)
+# l2.traverse()
 
+
+def mergeLinkedList(l1, l2):
+    dummy = node(0)
+    curr = dummy
+    while l1 and l2:
+        if l1.val <= l2.val:
+            curr.next = l1
+            l1 = l1.next
+        else:
+            curr.next = l2
+            l2 = l2.next
+        curr = curr.next
+    curr.next = l1 if l1 else l2
+    return dummy.next
+
+
+a = mergeLinkedList(l1.head, l2.head)
+l2.traverse(a)

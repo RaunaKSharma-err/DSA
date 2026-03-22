@@ -78,41 +78,31 @@ class solution:
                     curr.next.prev = temp
             curr = curr.next
 
+    def findThePairSumToTarget(self, target):
+        left = right = self.head
+        result = []
+        while right.next:
+            right = right.next
+        while left and right and left.val < right.val:
+            key = left.val + right.val
+            if key == target:
+                result.append([left.val, right.val])
+                left = left.next
+                right = right.prev
+            elif key < target:
+                left = left.next
+            else:
+                right = right.prev
+        return result
+
 
 dll1 = solution()
-dll1.append(9)
-dll1.append(9)
-dll1.append(9)
-dll1.append(9)
-dll1.append(9)
-dll1.append(9)
-dll1.append(9)
+dll1.append(1)
+dll1.append(2)
+dll1.append(4)
 dll1.traverse()
-
 dll2 = solution()
-dll2.append(9)
-dll2.append(9)
-dll2.append(9)
-dll2.append(9)
+dll2.append(1)
+dll2.append(3)
+dll2.append(4)
 dll2.traverse()
-
-
-def addTwoNumbers(l1, l2):
-    dummy = node(0)
-    curr = dummy
-    carry = 0
-    while l1 or l2 or carry:
-        val1 = l1.val if l1 else 0
-        val2 = l2.val if l2 else 0
-        total = val1 + val2 + carry
-        carry = total // 10
-        curr.next = node(total % 10)
-        curr = curr.next
-        if l1:
-            l1 = l1.next
-        if l2:
-            l2 = l2.next
-    return dummy.next
-
-
-a = addTwoNumbers(dll1.head, dll2.head)

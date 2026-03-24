@@ -106,3 +106,21 @@ dll2.append(1)
 dll2.append(3)
 dll2.append(4)
 dll2.traverse()
+
+s = "A man, a plan, a canal: Panama"
+
+
+def validPalindrome(s):
+    a = ""
+    for i in s:
+        if i == " " or i == "," or i == ":":
+            continue
+        a += i
+    a = a.lower()
+    b = (a[::-1])
+    if a == b:
+        return True
+    return False
+
+
+print(validPalindrome(s))

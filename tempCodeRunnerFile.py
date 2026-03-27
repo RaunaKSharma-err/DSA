@@ -1,17 +1,6 @@
-s = "A man, a plan, a canal: Panama"
-
-
-def validPalindrome(s):
-    a = ""
-    for i in s:
-        if i == " " or i == "," or i == ":":
-            continue
-        a += i
-    b = a[::-1]
-    print(a, b)
-    if a == b:
-        return True
-    return False
-
-
-print(validPalindrome(s))
+# Single Number | Bit Manipulation
+nums = [5, 5, 2, 1, 2, 2, 3, 1, 3]
+ans = 0
+for i in nums:
+    ans = ans ^ i
+print(ans)

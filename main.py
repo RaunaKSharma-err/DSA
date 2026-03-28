@@ -15,3 +15,18 @@ ans = 0
 for i in nums:
     ans = ans ^ i
 print(ans)
+
+# subsets
+
+n = [1, 2, 3, 4]
+length = len(n)
+subsets = 1 << length
+res = []
+
+for nums in range(0, subsets):
+    lst = []
+    for i in range(0, length):
+        if nums & (1 << i) != 0:
+            lst.append(n[i])
+    res.append(lst)
+print(res)

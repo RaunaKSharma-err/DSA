@@ -1,6 +1,15 @@
-# Single Number | Bit Manipulation
-nums = [5, 5, 2, 1, 2, 2, 3, 1, 3]
-ans = 0
-for i in nums:
-    ans = ans ^ i
-print(ans)
+# power bits
+
+n = [1, 2, 3, 4]
+length = len(n)
+subsets = 1 << length
+res = []
+
+for nums in range(0, subsets):
+    lst = []
+    for i in range(0, length):
+        if nums & (1 << i) != 0:
+            print(nums, i)
+            lst.append(nums[i])
+        res.append(lst)
+print(res)

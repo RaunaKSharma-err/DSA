@@ -1,15 +1,19 @@
-# power bits
+nums = [5, 9, 3, 4, 1]
+taget = 9
 
-n = [1, 2, 3, 4]
-length = len(n)
-subsets = 1 << length
-res = []
 
-for nums in range(0, subsets):
-    lst = []
-    for i in range(0, length):
-        if nums & (1 << i) != 0:
-            print(nums, i)
-            lst.append(nums[i])
-        res.append(lst)
-print(res)
+def generateSubsequence(nums, target):
+    res = []
+    n = len(nums)
+    subsets = 1 << n
+    for i in range(subsets):
+        lst = []
+        for j in range(n):
+            if i & (1 << j) != 0:
+                lst.append(nums[j])
+        if sum(lst) == target:
+            res.append(lst)
+    return res
+
+
+print(generateSubsequence(nums, taget))

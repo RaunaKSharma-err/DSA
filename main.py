@@ -63,7 +63,8 @@ def solveSubSequence(index, subset, total):
         return
     if index >= len(nums):
         return
-
+    if sum(subset) < target:
+        return
     subset.append(nums[index])
     sum = total + nums[index]
     solveSubSequence(index + 1, subset, sum)

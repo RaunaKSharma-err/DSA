@@ -1,16 +1,26 @@
 
-def solveSubSequence(index, subset):
-    if index >= len(nums):
+# generate all subsequence using recursion
+def solveSubSequence(index, subset, total):
+    if target == total:
         result.append(subset.copy())
         return
+    elif target < total:
+        return
+    if index >= len(nums):
+        return
+
     subset.append(nums[index])
-    solveSubSequence(index + 1, subset)
-    subset.pop()
-    solveSubSequence(index + 1, subset)
+    sum = total + nums[index]
+    solveSubSequence(index + 1, subset, sum)
+    e = subset.pop()
+    sum -= e
+    solveSubSequence(index + 1, subset, sum)
 
 
-nums = [1, 2, 3, 4]
+nums = [5, 9, 3, 4, 1]
 subset = []
 result = []
-solveSubSequence(0, subset)
+target = 9
+total = 0
+solveSubSequence(0, subset, total)
 print(result)

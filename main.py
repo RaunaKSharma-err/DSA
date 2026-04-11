@@ -55,29 +55,23 @@ print(generateSubsequence(nums, taget))
 
 
 # generate all subsequence using recursion
-def solveSubSequence(index, subset, total):
+def solveSubSequence(index, total):
     if target == total:
-        result.append(subset.copy())
-        return True
+        return 1
     elif target < total:
-        return False
+        return 0
     if index >= len(nums):
-        return False
-    subset.append(nums[index])
+        return 0
     sum = total + nums[index]
-    pick = solveSubSequence(index + 1, subset, sum)
-    if pick == True:
-        return True
-    subset.pop()
+    pick = solveSubSequence(index + 1, sum)
     sum = total
-    notPick = solveSubSequence(index + 1, subset, sum)
-    return notPick
+    notPick = solveSubSequence(index + 1, sum)
+    return pick + notPick
 
 
 nums = [5, 9, 3, 4, 1]
-subset = []
-result = []
 target = 9
 total = 0
-solveSubSequence(0, subset, total)
+result = solveSubSequence(0, total)
 print(result)
+

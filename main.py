@@ -58,19 +58,20 @@ print(generateSubsequence(nums, taget))
 def solveSubSequence(index, subset, total):
     if target == total:
         result.append(subset.copy())
-        return
+        return True
     elif target < total:
-        return
+        return False
     if index >= len(nums):
-        return
-    if sum(subset) < target:
-        return
+        return False
     subset.append(nums[index])
     sum = total + nums[index]
-    solveSubSequence(index + 1, subset, sum)
-    e = subset.pop()
-    sum -= e
-    solveSubSequence(index + 1, subset, sum)
+    pick = solveSubSequence(index + 1, subset, sum)
+    if pick == True:
+        return True
+    subset.pop()
+    sum = total
+    notPick = solveSubSequence(index + 1, subset, sum)
+    return notPick
 
 
 nums = [5, 9, 3, 4, 1]

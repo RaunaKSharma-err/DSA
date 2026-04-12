@@ -75,3 +75,28 @@ total = 0
 result = solveSubSequence(0, total)
 print(result)
 
+# generate the binary subsequence
+
+
+def generateParanthesis(index, total):
+    if index >= len(brackets):
+        if total == 0:
+            result.append("".join(brackets))
+        return
+    if total > len(brackets) // 2:
+        return
+    elif total < 0:
+        return
+    brackets[index] = "("
+    sums = total + 1
+    generateParanthesis(index + 1, brackets, sums)
+    brackets[index] = ")"
+    sums = total - 1
+    generateParanthesis(index + 1, brackets, sums)
+
+
+brackets = [""] * (2 * 4)
+result = []
+total = 0
+generateParanthesis(0, total)
+print(result)

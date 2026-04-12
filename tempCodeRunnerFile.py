@@ -1,20 +1,22 @@
-# generate all subsequence using recursion
-def solveSubSequence(index, total):
-    if target == total:
-        return 1
-    elif target < total:
-        return 0
-    if index >= len(nums):
-        return 0
-    sum = total + nums[index]
-    pick = solveSubSequence(index + 1, sum)
-    sum = total
-    notPick = solveSubSequence(index + 1, sum)
-    return pick + notPick
+def generateParanthesis(index, total, brackets):
+    if index >= len(brackets):
+        if total == 0:
+            result.append("".join(brackets))
+        return
+    if total > len(brackets) // 2:
+        return
+    elif total < 0:
+        return
+    brackets[index] = "("
+    sums = total + 1
+    generateParanthesis(index + 1, sums)
+    brackets[index] = ")"
+    sums = total - 1
+    generateParanthesis(index + 1, sums)
 
 
-nums = [5, 9, 3, 4, 1]
-target = 9
+brackets = [""] * (2 * 4)
+result = []
 total = 0
-result = solveSubSequence(0, total)
+generateParanthesis(0, total, brackets)
 print(result)

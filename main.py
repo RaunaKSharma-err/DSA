@@ -120,3 +120,43 @@ def generateAllBinaryString(index, flag, subset, result):
 
 generateAllBinaryString(0, True, subset, result)
 print(result)
+
+
+def solveSubSequence(index, total, subset):
+    if total == 0:
+        result.append(subset.copy())
+        return
+    elif total < 0:
+        return
+    if index >= len(nums):
+        return
+    for i in range(index, n):
+        if i > index and nums[i] == nums[i - 1]:
+            continue
+    subset.append(nums[index])
+    sums = total - nums[index]
+    solveSubSequence(i + 1, sums, subset)
+    subset.pop()
+
+
+# check for a valid palindrome
+def checkValidPalindrome(s):
+    left, right = 0, len(s) - 1
+
+    while left < right:
+        while left < right and not s[left].isalnum():
+            left += 1
+        while left < right and not s[right].isalnum():
+            right -= 1
+
+        if s[left].lower() != s[right].lower():
+            return False
+
+        left += 1
+        right -= 1
+
+    return True
+
+
+res = checkValidPalindrome("A man, a plan, a canal: Panama")
+print(res)

@@ -1,20 +1,23 @@
-def generateValidParenthesis(index, total):
-    if index >= len(subset):
-        if total == 0:
-            result.append("".join(subset))
+
+def combinationSum(index, total, subset):
+    if sum(subset) == target:
+        result.append(subset.copy())
         return
-    if total < 0 or total > len(subset) // 2:
+    if index >= len(nums):
         return
+    if total > target:
+        return
+    subset.append(nums[index])
+    sums = total + nums[index]
+    combinationSum(index, sums, subset)
+    subset.pop()
+    sums = total
+    combinationSum(index + 1, sums, subset)
 
-    subset[index] = "("
-    sums = total + 1
-    generateValidParenthesis(index + 1, sums)
-    sums = total - 1
-    subset[index] = ")"
-    generateValidParenthesis(index + 1, sums)
 
-
-subset = [""] * (2 * 3)
+target = 7
 result = []
-generateValidParenthesis(0, 0)
+subset = []
+nums = [2, 3, 6, 7]
+combinationSum(0, 0, subset)
 print(result)

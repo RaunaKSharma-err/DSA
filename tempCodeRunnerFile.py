@@ -1,20 +1,20 @@
-def checkValidPalindrome(s):
-    left, right = 0, len(s) - 1
+def generateValidParenthesis(index, total):
+    if index >= len(subset):
+        if total == 0:
+            result.append("".join(subset))
+        return
+    if total < 0 or total > len(subset) // 2:
+        return
 
-    while left < right:
-        while left < right and not s[left].isalnum():
-            left += 1
-        while left < right and not s[right].isalnum():
-            right -= 1
-
-        if s[left].lower() != s[right].lower():
-            return False
-
-        left += 1
-        right -= 1
-
-    return True
+    subset[index] = "("
+    sums = total + 1
+    generateValidParenthesis(index + 1, sums)
+    sums = total - 1
+    subset[index] = ")"
+    generateValidParenthesis(index + 1, sums)
 
 
-res = checkValidPalindrome("A man, a plan, a canal: Panama")
-print(res)
+subset = [""] * (2 * 3)
+result = []
+generateValidParenthesis(0, 0)
+print(result)

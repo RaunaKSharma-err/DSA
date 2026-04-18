@@ -163,7 +163,7 @@ print(result)
 # combination sums problem
 
 
-def combinationSum(index, total, subset):
+def combinationSum1(index, total, subset):
     if sum(subset) == target:
         result.append(subset.copy())
         return
@@ -173,15 +173,40 @@ def combinationSum(index, total, subset):
         return
     subset.append(nums[index])
     sums = total + nums[index]
-    combinationSum(index, sums, subset)
+    combinationSum1(index, sums, subset)
     subset.pop()
     sums = total
-    combinationSum(index + 1, sums, subset)
+    combinationSum1(index + 1, sums, subset)
 
 
 target = 7
 result = []
 subset = []
 nums = [2, 3, 6, 7]
-combinationSum(0, 0, subset)
+combinationSum1(0, 0, subset)
+print(result)
+
+# combination sums problem ||
+
+
+def combinationSum2(index, total, subset):
+    if total == 0:
+        result.append(subset.copy())
+        return
+    if total < 0:
+        return
+    for i in range(index, len(nums)):
+        if i > index and nums[i] == nums[i - 1]:
+            continue
+        subset.append(nums[i])
+        combinationSum2(i + 1, total - nums[i], subset)
+        subset.pop()
+
+
+target = 4
+result = []
+subset = []
+nums = [1, 1, 1, 2, 3]
+
+combinationSum2(0, target, subset)
 print(result)

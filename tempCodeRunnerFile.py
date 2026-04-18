@@ -1,23 +1,25 @@
 
 def combinationSum(index, total, subset):
-    if sum(subset) == target:
+    if total == 0:
         result.append(subset.copy())
         return
-    if index >= len(nums):
+
+    if total < 0:
         return
-    if total > target:
-        return
-    subset.append(nums[index])
-    sums = total + nums[index]
-    combinationSum(index, sums, subset)
-    subset.pop()
-    sums = total
-    combinationSum(index + 1, sums, subset)
+
+    for i in range(index, len(nums)):
+        if i > index and nums[i] == nums[i - 1]:
+            continue
+
+        subset.append(nums[i])
+        combinationSum(i + 1, total - nums[i], subset)
+        subset.pop()
 
 
-target = 7
+target = 4
 result = []
 subset = []
-nums = [2, 3, 6, 7]
-combinationSum(0, 0, subset)
+nums = [1, 1, 1, 2, 3]
+
+combinationSum(0, target, subset)
 print(result)

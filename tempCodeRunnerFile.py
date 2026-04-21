@@ -1,25 +1,26 @@
 
-def combinationSum(index, total, subset):
-    if total == 0:
-        result.append(subset.copy())
+def findLetterCombination(index, subset):
+    if index >= len(digit):
+        result.append("".join(subset))
         return
-
-    if total < 0:
-        return
-
-    for i in range(index, len(nums)):
-        if i > index and nums[i] == nums[i - 1]:
-            continue
-
-        subset.append(nums[i])
-        combinationSum(i + 1, total - nums[i], subset)
+    for ch in use_map[digit[index]]:
+        subset.append(ch)
+        findLetterCombination(index + 1, subset)
         subset.pop()
 
 
-target = 4
+use_map = {
+    "2": "abc",
+    "3": "def",
+    "4": "ghi",
+    "5": "jkl",
+    "6": "mno",
+    "7": "pqrs",
+    "8": "tuv",
+    "9": "wxyz",
+}
+digit = "46"
 result = []
 subset = []
-nums = [1, 1, 1, 2, 3]
-
-combinationSum(0, target, subset)
+findLetterCombination(0, [])
 print(result)

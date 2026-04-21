@@ -210,3 +210,56 @@ nums = [1, 1, 1, 2, 3]
 
 combinationSum2(0, target, subset)
 print(result)
+
+# combination sums problem |||
+
+
+def combinationSum3(last, total, subset):
+    if total == n and len(subset) == k:
+        result.append(subset.copy())
+        return
+    if total > n or len(subset) > k:
+        return
+    for i in range(last, 10):
+        sum = total + i
+        subset.append(i)
+        combinationSum3(i + 1, sum, subset)
+        subset.pop()
+
+
+target = 4
+result = []
+subset = []
+nums = [1, 1, 1, 2, 3]
+
+combinationSum3(0, target, subset)
+print(result)
+
+# generate the combination of the letter from the numbers
+
+
+def findLetterCombination(index, subset):
+    if index >= len(digit):
+        result.append("".join(subset))
+        return
+    for ch in use_map[digit[index]]:
+        subset.append(ch)
+        findLetterCombination(index + 1, subset)
+        subset.pop()
+
+
+use_map = {
+    "2": "abc",
+    "3": "def",
+    "4": "ghi",
+    "5": "jkl",
+    "6": "mno",
+    "7": "pqrs",
+    "8": "tuv",
+    "9": "wxyz",
+}
+digit = "46"
+result = []
+subset = []
+findLetterCombination(0, [])
+print(result)

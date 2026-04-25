@@ -1,32 +1,20 @@
-# N - Queens leetcode problem
-n = 4
-ans = []
-board = ["." * n for _ in range(n)]
-leftRow = [0] * n
-upperDiagonal = [0] * (2 * n - 1)
-lowerDiagonal = [0] * (2 * n - 1)
-
-
-def findNQueen(col, n, board, ans, leftRow, upperDiagonal, lowerDiagonal):
-    if col == n:
-        ans.append(board[:])
+def findTheSteps(index, total, subset, count):
+    if index >= n:
+        if total == 0:
+            count += 1
+            print(count)
         return
-    for row in range(n):
-        if (
-            leftRow[row] == 0
-            and lowerDiagonal[row + col] == 0
-            and upperDiagonal[n - 1 + col - row] == 0
-        ):
-            board[row] = board[row][:col] + "Q" + board[row][col + 1 :]
-            leftRow[row] = 1
-            lowerDiagonal[row + col] = 1
-            upperDiagonal[n - 1 + col - row] = 1
-            findNQueen(col + 1, n, board, ans, leftRow, upperDiagonal, lowerDiagonal)
-            board[row] = board[row][:col] + "." + board[row][col + 1 :]
-            leftRow[row] = 0
-            lowerDiagonal[row + col] = 0
-            upperDiagonal[n - 1 + col - row] = 0
+    if total < 0:
+        return
+    subset.append(1)
+    sums = total - subset[index]
+    findTheSteps(index + 1, sums, subset, count)
+    subset[index] = 2
+    sums = total - subset[index]
+    findTheSteps(index + 1, sums, subset, count)
 
 
-findNQueen(0, n, board, ans, leftRow, upperDiagonal, lowerDiagonal)
-print(ans)
+n = 5
+count = 0
+findTheSteps(0, 5, [], 0)
+print(count)

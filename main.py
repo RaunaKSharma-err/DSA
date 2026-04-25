@@ -315,3 +315,44 @@ def findNQueen(col, n, board, ans, leftRow, upperDiagonal, lowerDiagonal):
 findNQueen(0, n, board, ans, leftRow, upperDiagonal, lowerDiagonal)
 print(ans)
 
+# Furthest Point From Origin
+
+
+def moveFurthestPointFromOrigin(moves):
+    left = right = blank = 0
+    for i in moves:
+        if i == "L":
+            left += 1
+        elif i == "R":
+            right += 1
+        else:
+            blank += 1
+    return abs(left - right) + blank
+
+
+moves = "_R__LL_"
+res = moveFurthestPointFromOrigin(moves)
+print(res)
+
+# climbing stair problem
+
+
+def findTheSteps(index, total, subset, count):
+    if index >= n:
+        if total == 0:
+            count += 1
+        return
+    if total < 0:
+        return
+    subset.append(1)
+    sums = total - subset[index]
+    findTheSteps(index + 1, sums, subset, count)
+    subset[index] = 2
+    sums = total - subset[index]
+    findTheSteps(index + 1, sums, subset, count)
+
+
+n = 5
+count = 0
+findTheSteps(0, 5, [], 0)
+print(count)

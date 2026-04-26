@@ -336,7 +336,6 @@ print(res)
 
 # climbing stair problem
 
-
 def findTheSteps(index, total, subset, count):
     if index >= n:
         if total == 0:

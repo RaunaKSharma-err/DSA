@@ -336,6 +336,7 @@ print(res)
 
 # climbing stair problem
 
+
 def findTheSteps(index, total, subset, count):
     if index >= n:
         if total == 0:
@@ -355,3 +356,15 @@ n = 5
 count = 0
 findTheSteps(0, 5, [], 0)
 print(count)
+
+
+# reverse bit leetcode solution
+def reverseBit(n):
+    res = 0
+    for _ in range(32):
+        res = (res << 1) | (n & 1)
+        n >>= 1
+    return res
+
+
+reverseBit(25)

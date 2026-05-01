@@ -420,3 +420,37 @@ def ratMaze(row, col, res):
 
 ratMaze(0, 0, [])
 print(result)
+
+
+# rotate function leetcode solution
+# brute force solution
+def rotateFunction(nums):
+    greatest = 0
+    for i in range(len(nums)):
+        res = 0
+        k = 0
+        for j in range(-i, len(nums) - i):
+            res += k * nums[j]
+            k += 1
+        greatest = res if greatest < res else greatest
+    return greatest
+
+
+nums = [100]
+ans = rotateFunction(nums)
+print(ans)
+
+#optimal solution
+
+def rotateFunction(nums):
+    n = len(nums)
+    total_sum = sum(nums)
+    
+    F = sum(i * num for i, num in enumerate(nums))
+    max_val = F
+    
+    for k in range(1, n):
+        F = F + total_sum - n * nums[-k]
+        max_val = max(max_val, F)
+    
+    return max_val

@@ -440,17 +440,39 @@ nums = [100]
 ans = rotateFunction(nums)
 print(ans)
 
-#optimal solution
+# optimal solution
+
 
 def rotateFunction(nums):
     n = len(nums)
     total_sum = sum(nums)
-    
+
     F = sum(i * num for i, num in enumerate(nums))
     max_val = F
-    
+
     for k in range(1, n):
         F = F + total_sum - n * nums[-k]
         max_val = max(max_val, F)
-    
+
     return max_val
+
+
+# longest substring problem
+
+
+def longestSubstring(s):
+    last_seen = {}
+    left = 0
+    result = 0
+
+    for right, ch in enumerate(s):
+        if ch in last_seen:
+            left = max(left, last_seen[ch] + 1)
+        last_seen[ch] = right
+        result = max(result, right - left + 1)
+    return result
+
+
+s = "tmmzuxt"
+a = longestSubstring(s)
+print(a)

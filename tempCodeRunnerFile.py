@@ -1,15 +1,16 @@
-def rotateFunction(nums):
-    greatest = 0
-    for i in range(len(nums)):
-        res = 0
-        k = 0
-        for j in range(-i, len(nums) - i):
-            res += k * nums[j]
-            k += 1
-        greatest = res if greatest < res else greatest
-    return greatest
+def longestSubstring(s):
+    last_seen = {}
+    left = 0
+    result = 0
+
+    for right, ch in enumerate(s):
+        if ch in last_seen:
+            left = max(left, last_seen[ch] + 1)
+        last_seen[ch] = right
+        result = max(result, right - left + 1)
+    return result
 
 
-nums = [100]
-ans = rotateFunction(nums)
-print(ans)
+s = "tmmzuxt"
+a = longestSubstring(s)
+print(a)

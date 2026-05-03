@@ -476,3 +476,15 @@ def longestSubstring(s):
 s = "tmmzuxt"
 a = longestSubstring(s)
 print(a)
+
+# rotate the string leetcode problem
+
+
+def rotatedString(s, goal):
+    return len(s) == len(goal) and goal in s + s
+
+
+s = "abcde"
+goal = "deabc"
+ans = rotatedString(s, goal)
+print(ans)

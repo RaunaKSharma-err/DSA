@@ -488,3 +488,46 @@ s = "abcde"
 goal = "deabc"
 ans = rotatedString(s, goal)
 print(ans)
+
+
+# largest palindrome leetcode problem
+
+
+def largestPlaindrome(s):
+    # Transform string
+        t = "#" + "#".join(s) + "#"
+        n = len(t)
+        p = [0] * n
+        
+        center = 0
+        right = 0
+        max_len = 0
+        max_center = 0
+
+        for i in range(n):
+            mirror = 2 * center - i
+
+            if i < right:
+                p[i] = min(right - i, p[mirror])
+
+            # Expand around center i
+            while i - p[i] - 1 >= 0 and i + p[i] + 1 < n and t[i - p[i] - 1] == t[i + p[i] + 1]:
+                p[i] += 1
+
+            # Update center and right boundary
+            if i + p[i] > right:
+                center = i
+                right = i + p[i]
+
+            # Track max palindrome
+            if p[i] > max_len:
+                max_len = p[i]
+                max_center = i
+
+        start = (max_center - max_len) // 2
+        return s[start:start + max_len]
+
+
+s = "cbbd"
+res = largestPlaindrome(s)
+print(res)

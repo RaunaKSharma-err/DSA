@@ -1,31 +1,15 @@
-from collections import deque
+def nextGreaterElement(nums):
+    stack = []
+    n = len(nums)
+    for i in range(n - 1, 0, -1):
+        while len(stack) > 0 and nums[i] > stack[-1]:
+            stack.pop()
+        if len(stack) != 0:
+            ans[i]=stack[-1]
+        stack.append(nums[i])
 
 
-class stack:
-    def __init__(self):
-        self.items = deque([])
-
-    def push(self, val):
-        self.items.append(val)
-        for _ in range(len(self.items) - 1):
-            self.items.append(self.items.popleft())
-
-    def pop(self):
-        if len(self.items) == 0:
-            return "stack is empty"
-        return self.items.popleft()
-
-    def top(self):
-        if len(self.items) == 0:
-            return "stack is empty"
-        return self.items[0]
-
-
-lst = stack()
-lst.push(100)
-lst.push(200)
-lst.push(300)
-print(lst)
-lst.pop()
-print(lst)
-lst.top()
+nums = [19, 2, 4, 9, 3, 5, 8, 10]
+ans = [-1] * len(nums)
+nextGreaterElement(nums)
+print(ans)

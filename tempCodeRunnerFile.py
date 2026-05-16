@@ -1,16 +1,18 @@
-def nextGreaterElement(nums):
+def asteroidCollision(nums):
     stack = []
-    n = len(nums)
-    for i in range(2*n - 1, -1, -1):
-        while len(stack) > 0 and nums[i%n] > stack[-1]:
-            stack.pop()
-        if i <n:
-            if len(stack) != 0:
-                ans[i]=stack[-1]
-        stack.append(nums[i%n])
+    for i in nums:
+        while stack and i < 0 < stack[-1]:
+            if stack[-1] < -i:
+                stack.pop()
+                continue
+            if stack[-1] == -i:
+                stack.pop()
+            break
+        else:
+            stack.append(i)
+    return stack
 
 
-nums = [19, 2, 4, 9, 3, 5, 8, 10]
-ans = [-1] * len(nums)
-nextGreaterElement(nums)
+nums = [4, 7, 1, 1, 2, -3, -7, 17, 15, -16]
+ans = asteroidCollision(nums)
 print(ans)

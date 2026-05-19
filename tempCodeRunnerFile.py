@@ -1,18 +1,17 @@
-def asteroidCollision(nums):
-    stack = []
-    for i in nums:
-        while stack and i < 0 < stack[-1]:
-            if stack[-1] < -i:
-                stack.pop()
-                continue
-            if stack[-1] == -i:
-                stack.pop()
-            break
-        else:
-            stack.append(i)
-    return stack
+
+def lengthOfLongestSubstring(s):
+    left = 0
+    maxi = 0
+    hashmap = dict()
+    for right in range(len(s)):
+        if s[right] in hashmap and hashmap[s[right]] >= left:
+            left = hashmap[s[right]] + 1
+
+        hashmap[s[right]] = right
+        maxi = max(maxi, right - left + 1)
+    return maxi
 
 
-nums = [4, 7, 1, 1, 2, -3, -7, 17, 15, -16]
-ans = asteroidCollision(nums)
+s = "abcabcbb"
+ans = lengthOfLongestSubstring(s)
 print(ans)

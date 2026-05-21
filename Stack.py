@@ -252,17 +252,46 @@ print(ans)
 
 # fruits in the basket leetcode solution
 
-def totalFruit(nums):
-    right =0 
-    left =0 
-    count = 0 
-    myset = set()
-    for i in range(len(nums)):
-        if len(myset)>2:
-            if nums[left] in myset:
-                myset.remove(nums[left])
-            left+=1
-        
 
-ans = totalFruit([3,3,3,1,2,1,1,2,3,3,4])
+def totalFruit(nums):
+    right = 0
+    left = 0
+    maxi = 0
+    mydict = {}
+    while right < len(nums):
+        mydict[nums[right]] = mydict.get(nums[right], 0) + 1
+        if len(mydict) > 2:
+            mydict[nums[left]] -= 1
+            if mydict[nums[left]] == 0:
+                del mydict[nums[left]]
+            left += 1
+        if len(mydict) <= 2:
+            maxi = max(maxi, right - left + 1)
+        right += 1
+    return maxi
+
+
+ans = totalFruit([3, 3, 3, 1, 2, 1, 3, 2, 1, 2, 4])
+print(ans)
+
+
+# maximum points you can obtain from cards leetcode solution
+
+
+def maxScore(cardPoints, k):
+    right = -k
+    maxi = 0
+    arr = []
+    while right < k:
+        if len(arr) == k:
+            arr.pop(0)
+        arr.append(cardPoints[right])
+        maxi = max(maxi, sum(arr))
+        right += 1
+    return maxi
+
+
+cardPoints = [1, 2, 3, 4, 5, 6, 1]
+k = 3
+ans = maxScore(cardPoints, k)
 print(ans)

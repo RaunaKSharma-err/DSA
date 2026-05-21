@@ -1,21 +1,17 @@
-def maxConsecutiveOnes(nums, k):
-    left = 0
-    right = 0
+def maxScore(cardPoints, k):
+    right = -k
     maxi = 0
-    zero = 0
-    n = len
-    while right < len(nums):
-        if nums[right] == 0:
-            zero += 1
-        if zero > k:
-            if nums[left] == 0:
-                zero -= 1
-            left += 1
-        if zero <= k:
-            maxi = max(maxi, right - left + 1)
+    arr = []
+    while right < k:
+        if len(arr) == k:
+            arr.pop(0)
+        arr.append(cardPoints[right])
+        maxi = max(maxi, sum(arr))
         right += 1
     return maxi
 
 
-ans = maxConsecutiveOnes([1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2)
+cardPoints = [1, 2, 3, 4, 5, 6, 1]
+k = 3
+ans = maxScore(cardPoints, k)
 print(ans)

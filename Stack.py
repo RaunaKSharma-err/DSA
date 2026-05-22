@@ -275,19 +275,22 @@ ans = totalFruit([3, 3, 3, 1, 2, 1, 3, 2, 1, 2, 4])
 print(ans)
 
 
-# maximum points you can obtain from cards leetcode solution
+#1432. maximum points you can obtain from cards leetcode solution 
 
 
 def maxScore(cardPoints, k):
-    right = -k
-    maxi = 0
-    arr = []
-    while right < k:
-        if len(arr) == k:
-            arr.pop(0)
-        arr.append(cardPoints[right])
-        maxi = max(maxi, sum(arr))
-        right += 1
+    n = len(cardPoints)
+    leftsum = 0
+    rightsum = 0
+    for i in range(k):
+        leftsum += cardPoints[i]
+    maxi = leftsum
+    rightidx = n - 1
+    for i in range(k - 2, -1, -1):
+        leftsum -= cardPoints[i]
+        rightsum -= cardPoints[n - k + i]
+        maxi = max(maxi, leftsum + rightsum)
+        rightidx -= 1
     return maxi
 
 

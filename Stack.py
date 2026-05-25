@@ -342,3 +342,34 @@ coins = [1, 2, 5, 10, 20, 50, 100, 200, 500, 2000]
 amount = 43
 ans = coinChange(coins, amount)
 print(ans)
+
+
+# lemonade change leetcode solution
+
+
+def lemonadeChange(bills):
+    n=len(bills)
+    five=0
+    ten=0
+    for i in range(n):
+        if bills[i]==5:
+            five+=1
+        elif bills[i]==10:
+            if five==0:
+                return False
+            five-=1
+            ten+=1
+        else:
+            if ten>0 and five>0:
+                ten-=1
+                five-=1
+            elif five>=3:
+                five-=3
+            else:
+                return False
+    return True
+
+
+bills = [5, 5, 10, 10, 20]
+ans = lemonadeChange(bills)
+print(ans)

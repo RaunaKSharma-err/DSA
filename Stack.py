@@ -348,23 +348,23 @@ print(ans)
 
 
 def lemonadeChange(bills):
-    n=len(bills)
-    five=0
-    ten=0
+    n = len(bills)
+    five = 0
+    ten = 0
     for i in range(n):
-        if bills[i]==5:
-            five+=1
-        elif bills[i]==10:
-            if five==0:
+        if bills[i] == 5:
+            five += 1
+        elif bills[i] == 10:
+            if five == 0:
                 return False
-            five-=1
-            ten+=1
+            five -= 1
+            ten += 1
         else:
-            if ten>0 and five>0:
-                ten-=1
-                five-=1
-            elif five>=3:
-                five-=3
+            if ten > 0 and five > 0:
+                ten -= 1
+                five -= 1
+            elif five >= 3:
+                five -= 3
             else:
                 return False
     return True
@@ -373,3 +373,21 @@ def lemonadeChange(bills):
 bills = [5, 5, 10, 10, 20]
 ans = lemonadeChange(bills)
 print(ans)
+
+
+# jump game leetcode solution
+def canJump(nums):
+    n = len(nums)
+    maxReach = 0
+    for i in range(n):
+        if i > maxReach:
+            return False
+        maxReach = max(maxReach, i + nums[i])
+    return True
+
+
+nums = [3, 2, 1, 0, 0, 2, 1, 5]
+ans = canJump(nums)
+print(ans)
+
+

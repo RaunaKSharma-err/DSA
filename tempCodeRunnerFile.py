@@ -1,14 +1,18 @@
-# jump game leetcode solution
-def canJump(nums):
+def canjump(nums):
+    jump = 0
+    left = 0
+    right = 0
     n = len(nums)
-    maxReach = 0
-    for i in range(n):
-        if i > maxReach:
-            return False
-        maxReach = max(maxReach, i + nums[i])
-    return True
+    while right <= n - 1:
+        farthest = 0
+        for i in range(left, right + 1):
+            farthest = max(farthest, i + nums[i])
+        left = right + 1
+        right = farthest
+        jump += 1
+    return jump
 
 
-nums = [3, 2, 1, 0, 0, 2, 1, 5]
-ans = canJump(nums)
+nums = [2, 3, 4, 4, 1, 1, 1, 2]
+ans = canjump(nums)
 print(ans)

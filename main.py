@@ -495,37 +495,41 @@ print(ans)
 
 def largestPlaindrome(s):
     # Transform string
-        t = "#" + "#".join(s) + "#"
-        n = len(t)
-        p = [0] * n
-        
-        center = 0
-        right = 0
-        max_len = 0
-        max_center = 0
+    t = "#" + "#".join(s) + "#"
+    n = len(t)
+    p = [0] * n
 
-        for i in range(n):
-            mirror = 2 * center - i
+    center = 0
+    right = 0
+    max_len = 0
+    max_center = 0
 
-            if i < right:
-                p[i] = min(right - i, p[mirror])
+    for i in range(n):
+        mirror = 2 * center - i
 
-            # Expand around center i
-            while i - p[i] - 1 >= 0 and i + p[i] + 1 < n and t[i - p[i] - 1] == t[i + p[i] + 1]:
-                p[i] += 1
+        if i < right:
+            p[i] = min(right - i, p[mirror])
 
-            # Update center and right boundary
-            if i + p[i] > right:
-                center = i
-                right = i + p[i]
+        # Expand around center i
+        while (
+            i - p[i] - 1 >= 0
+            and i + p[i] + 1 < n
+            and t[i - p[i] - 1] == t[i + p[i] + 1]
+        ):
+            p[i] += 1
 
-            # Track max palindrome
-            if p[i] > max_len:
-                max_len = p[i]
-                max_center = i
+        # Update center and right boundary
+        if i + p[i] > right:
+            center = i
+            right = i + p[i]
 
-        start = (max_center - max_len) // 2
-        return s[start:start + max_len]
+        # Track max palindrome
+        if p[i] > max_len:
+            max_len = p[i]
+            max_center = i
+
+    start = (max_center - max_len) // 2
+    return s[start : start + max_len]
 
 
 s = "cbbd"
@@ -533,3 +537,19 @@ res = largestPlaindrome(s)
 print(res)
 
 
+# minimum platforms leetcode problem
+def minimumPlatform(arr, dep):
+    max_platform = 0
+    n = len(arr)
+    for i in range(n):
+        platform=1
+        for j in range(n):
+            if arr[i] < dep[j] < dep[i]:
+                platform += 1
+        max_platform = max(max_platform, platform)
+    return max_platform
+
+ans = minimumPlatform(
+    [900, 940, 950, 1100, 1500, 1800], [910, 1200, 1120, 1130, 1900, 2000]
+)
+print(ans)

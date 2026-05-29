@@ -1,18 +1,15 @@
-def canjump(nums):
-    jump = 0
-    left = 0
-    right = 0
-    n = len(nums)
-    while right <= n - 1:
-        farthest = 0
-        for i in range(left, right + 1):
-            farthest = max(farthest, i + nums[i])
-        left = right + 1
-        right = farthest
-        jump += 1
-    return jump
+def minimumPlatform(arr, dep):
+    max_platform = 0
+    n = len(arr)
+    for i in range(n):
+        platform=1
+        for j in range(n):
+            if arr[i] < dep[j] < dep[i]:
+                platform += 1
+        max_platform = max(max_platform, platform)
+    return max_platform
 
-
-nums = [2, 3, 4, 4, 1, 1, 1, 2]
-ans = canjump(nums)
+ans = minimumPlatform(
+    [900, 940, 950, 1100, 1500, 1800], [910, 1200, 1120, 1130, 1900, 2000]
+)
 print(ans)

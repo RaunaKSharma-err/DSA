@@ -539,17 +539,25 @@ print(res)
 
 # minimum platforms leetcode problem
 def minimumPlatform(arr, dep):
-    max_platform = 0
-    n = len(arr)
-    for i in range(n):
-        platform=1
-        for j in range(n):
-            if arr[i] < dep[j] < dep[i]:
-                platform += 1
-        max_platform = max(max_platform, platform)
-    return max_platform
+    arr.sort()
+    dep.sort()
+    platform_needed = 1
+    max_platforms = 1
+    j = 0
+    i = 1
+    while i < len(arr) and j < len(dep):
+        if arr[i] <= dep[j]:
+            platform_needed += 1
+            i += 1
+        else:
+            platform_needed -= 1
+            j += 1
+        max_platforms = max(max_platforms, platform_needed)
+    return max_platforms
+
 
 ans = minimumPlatform(
     [900, 940, 950, 1100, 1500, 1800], [910, 1200, 1120, 1130, 1900, 2000]
 )
 print(ans)
+

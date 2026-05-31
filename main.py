@@ -561,3 +561,21 @@ ans = minimumPlatform(
 )
 print(ans)
 
+# MaximumPathSum leetcode problem
+
+
+def MaximumPathSum(root):
+    maxi=0
+    def solve(node):
+        if node is None:
+            return 0
+        leftSum = solve(node.left)
+        if leftSum < 0:
+            leftSum = 0
+        rightSum = solve(node.right)
+        if rightSum < 0:
+            rightSum = 0
+        maxi = max(maxi, leftSum + rightSum + node.val)
+        return max(leftSum, rightSum) + node.val
+    solve(root)
+    return maxi

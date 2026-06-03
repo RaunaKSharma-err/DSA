@@ -593,30 +593,68 @@ class node:
         self.right = None
 
 
-root = node(5)
-root.left = node(3)
-root.right = node(1)
+root = node(3)
+root.left = node(2)
+root.right = node(9)
 root.right.left = node(8)
-root.right.right = node(7)
-root.left.left = node(6)
-root.left.right = node(2)
+root.right.right = node(5)
+root.left.left = node(4)
+root.left.right = node(6)
+root.left.left.right = node(1)
 
 
-def topView(node):
-    if node is None:
-        return None
-    queue = [(node, 0)]
-    top_view = {}
-    while queue:
-        current_node, line = queue.pop(0)
-        if line not in top_view:
-            top_view[line] = current_node.val
-        if current_node.left:
-            queue.append((current_node.left, line - 1))
-        if current_node.right:
-            queue.append((current_node.right, line + 1))
-    return [top_view[key] for key in sorted(top_view.keys())]
+# def topView(node):
+#     if node is None:
+#         return None
+#     queue = [(node, 0)]
+#     top_view = {}
+#     while queue:
+#         current_node, line = queue.pop(0)
+#         if line not in top_view:
+#             top_view[line] = current_node.val
+#         if current_node.left:
+#             queue.append((current_node.left, line - 1))
+#         if current_node.right:
+#             queue.append((current_node.right, line + 1))
+#     return [top_view[key] for key in sorted(top_view.keys())]
 
 
-ans = topView(root)
+# ans = topView(root)
+# print(ans)
+
+
+# def bottomView(node):
+#     if node is None:
+#         return None
+#     queue = [(node, 0)]
+#     bottom_view = {}
+#     while queue:
+#         current_node, line = queue.pop(0)
+#         bottom_view[line] = current_node.val
+#         if current_node.left:
+#             queue.append((current_node.left, line - 1))
+#         if current_node.right:
+#             queue.append((current_node.right, line + 1))
+#     return [bottom_view[key] for key in sorted(bottom_view.keys())]
+
+
+# ans = bottomView(root)
+# print(ans)
+
+
+def RightView(root):
+    def solve(node, level, ans):
+        if node is None:
+            return
+        if len(ans) == level:
+            ans.append(node.val)
+        if node.right:
+            solve(node.right, level + 1, ans)
+        if node.left:
+            solve(node.left, level + 1, ans)
+    ans=[]
+    solve(root, 0, ans)
+    return ans
+
+ans = RightView(root)
 print(ans)

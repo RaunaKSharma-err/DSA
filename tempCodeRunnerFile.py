@@ -1,34 +1,38 @@
-class node:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
+from collections import deque
 
 
-root = node(5)
-root.left = node(3)
-root.right = node(1)
-root.right.left = node(8)
-root.right.right = node(7)
-root.left.left = node(6)
-root.left.right = node(2)
+def bfs(n, adjacency_list):
+    queue = deque()
+    visited = [False] * (n + 1)
+    ans =[]
+    for i in range(1, n + 1):
+        for j in adjacency_list[i]:
+            if not visited[j]:
+                queue.append(j)
+                visited[j] = True
+                while queue:
+                    node = queue.popleft()
+                    ans.append(node)
+                    for neighbor in adjacency_list[node]:
+                        if not visited[neighbor]:
+                            queue.append(neighbor)
+                            visited[neighbor] = True
+    return ans
+                
 
 
-def topView(node):
-    if node is None:
-        return None
-    queue = [(node, 0)]
-    top_view = {}
-    while queue:
-        current_node, line = queue.pop(0)
-        if line not in top_view:
-            top_view[line] = current_node.val
-        if current_node.left:
-            queue.append((current_node.left, line - 1))
-        if current_node.right:
-            queue.append((current_node.right, line + 1))
-    return [top_view[key] for key in sorted(top_view.keys())]
-
-
-ans = topView(root)
+n = 9
+adjacency_list = [
+    [],
+    [2, 8],
+    [1, 3, 4],
+    [2],
+    [2, 5],
+    [4, 6],
+    [5, 7],
+    [6, 8],
+    [1, 7, 9],
+    [8],
+]
+ans = bfs(n, adjacency_list)
 print(ans)

@@ -153,3 +153,33 @@ adjacency_list = [
 ans = has_cycle(7, 7,adjacency_list)
 print(ans)
 
+# cycle detection using DFS
+def has_cycle_dfs(v,e, adjacency_list):
+    visited = [False] * (v + 1)
+    def dfs(node, parent):
+        visited[node] = True
+        for neighbor in adjacency_list[node]:
+            if not visited[neighbor]:
+                if dfs(neighbor, node):
+                    return True
+            elif neighbor != parent:
+                return True
+        return False
+    for i in range(1,v+1):
+        if not visited[i]:
+            if dfs(i, -1):
+                return True
+    return False
+
+adjacency_list = [
+    [],
+    [2,4],
+    [1, 3, 6],
+    [2],
+    [1, 5],
+    [4, 7],
+    [2, 7],
+    [5,6],
+]
+ans = has_cycle_dfs(7, 7,adjacency_list)
+print(ans)

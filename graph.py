@@ -125,16 +125,19 @@ from collections import deque
 def has_cycle(v,e, adjacency_list):
     visited = [False] * (v + 1)
     queue = deque()
-    queue.append((1, -1))
-    visited[1] = True
-    while queue:
-        node, parent = queue.popleft()
-        for neighbor in adjacency_list[node]:
-            if not visited[neighbor]:
-                visited[neighbor]=True
-                queue.append((neighbor, node))
-            elif neighbor != parent:
-                return True
+    for i in range(1,v+1):
+        if visited[i]:
+            continue
+        queue.append((i, -1))
+        visited[i] = True
+        while queue:
+            node, parent = queue.popleft()
+            for neighbor in adjacency_list[node]:
+                if not visited[neighbor]:
+                    visited[neighbor]=True
+                    queue.append((neighbor, node))
+                elif neighbor != parent:
+                    return True
     return False   
         
 adjacency_list = [
@@ -149,3 +152,4 @@ adjacency_list = [
 ]
 ans = has_cycle(7, 7,adjacency_list)
 print(ans)
+

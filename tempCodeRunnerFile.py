@@ -1,28 +1,25 @@
 from collections import deque
-def has_cycle(v,e, adjacency_list):
-    visited = [False] * (v + 1)
+def nearestZero(mat):
+    row = len(mat)
+    col = len(mat[0])
+    visited = [[0  for _ in range(col)] for _ in range(row)]
+    distance = [[0  for _ in range(col)] for _ in range(row)]
     queue = deque()
-    queue.append((1, -1))
-    visited[1] = True
+    for i in range(row):
+        for j in range(col):
+            if mat[i][j] == 0:
+                queue.append([i,j,0])
+                visited[i][j] = 1
     while queue:
-        node, parent = queue.popleft()
-        for neighbor in adjacency_list[node]:
-            if not visited[neighbor]:
-                visited[neighbor]=True
-                queue.append((neighbor, node))
-            elif neighbor != parent:
-                return True
-    return False   
-        
-adjacency_list = [
-    [],
-    [2,4],
-    [1, 3, 6],
-    [2],
-    [1, 5],
-    [4, 7],
-    [2, 7],
-    [5,6],
-]
-ans = has_cycle(7, 7,adjacency_list)
+        i,j,d = queue.popleft()
+        distance[i][j] = d
+        for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+            new_x, new_y = i + dx, j + dy
+            if 0 <= new_x < row and 0 <= new_y < col and not visited[new_x][new_y]:
+                visited[new_x][new_y] = 1
+                queue.append([new_x, new_y, d + 1])
+    return distance
+
+matrix = [[0, 1, 0], [0, 0, 1], [0, 1, 1]]
+ans = nearestZero(matrix)
 print(ans)

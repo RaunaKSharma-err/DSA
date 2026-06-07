@@ -210,3 +210,49 @@ def nearestZero(mat):
 matrix = [[0, 1, 0], [0, 0, 1], [0, 1, 1]]
 ans = nearestZero(matrix)
 print(ans)
+
+#surrounded regions leetcode problem
+def surroundedRegions(board):
+    def dfs(rows, cols, board, visited, r, c):
+        if r < 0 or r >= rows or c < 0 or c >= cols or board[r][c] != "O" or visited[r][c]:
+            return
+        if visited[r][c] ==1:
+            return
+        if board[r][c]=="X":
+            return
+        visited[r][c] = 1
+        dfs(rows, cols, board, visited, r - 1, c)
+        dfs(rows, cols, board, visited, r, c-1)
+        dfs(rows, cols, board, visited, r, c +1)
+        dfs(rows, cols, board, visited, r+1, c)
+
+    rows = len(board)
+    cols = len(board[0])
+    visited = [[0 for _ in range(cols)] for _ in range(rows)]
+    r,c=0,0
+    for c in range(cols):  
+        if board[r][c]=="O":
+            if visited[r][c]==0:
+                dfs(rows, cols, board, visited, r, c)
+    r,c=rows-1,0
+    for c in range(cols):  
+        if board[r][c]=="O":
+            if visited[r][c]==0:
+                dfs(rows, cols, board, visited, r, c)
+    r,c=0,0
+    for r in range(rows):
+        if board[r][c]=="O":
+            if visited[r][c]==0:
+                dfs(rows, cols, board, visited, r, c)
+    r,c=0,cols-1
+    for r in range(rows):
+        if board[r][c]=="O":
+            if visited[r][c]==0:
+                dfs(rows, cols, board, visited, r, c)
+
+    for i in range(rows):
+        for j in range(cols):
+            if board[i][j]=="O" and not visited[i][j]:
+                board[i][j]="X"
+ans = surroundedRegions([["X", "X", "X", "X"], ["X", "O", "O", "X"], ["X", "X", "O", "X"], ["X", "O", "X", "X"]])
+print(ans)

@@ -317,3 +317,47 @@ def wordLadder(beginWord,endWord,wordList):
 ans = wordLadder("hit","cog",["hot","dot","dog","lot","log","cog"])
 print(ans)
 
+# word ladder leetcode solution TC- o(n*m*26) where m is len(newword)
+from collections import deque
+
+def wordLadderII(beginWord, endWord, wordList):
+    myset = set(wordList)
+
+    if endWord not in myset:
+        return []
+
+    result = []
+    queue = deque([[beginWord]])
+    found = False
+
+    while queue and not found:
+        levelSize = len(queue)
+        chosenWords = set()
+
+        for _ in range(levelSize):
+            sequence = queue.popleft()
+            lastWord = sequence[-1]
+
+            if lastWord == endWord:
+                result.append(sequence)
+                found = True
+                continue
+
+            for i in range(len(lastWord)):
+                for c in "abcdefghijklmnopqrstuvwxyz":
+                    if c == lastWord[i]:
+                        continue
+
+                    newWord = lastWord[:i] + c + lastWord[i+1:]
+
+                    if newWord in myset:
+                        queue.append(sequence + [newWord])
+                        chosenWords.add(newWord)
+
+        for word in chosenWords:
+            myset.discard(word)
+
+    return result
+
+ans = wordLadderII("hit","cog",["hot","dot","dog","lot","log","cog"])
+print(ans)

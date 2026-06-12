@@ -361,3 +361,26 @@ def wordLadderII(beginWord, endWord, wordList):
 
 ans = wordLadderII("hit","cog",["hot","dot","dog","lot","log","cog"])
 print(ans)
+
+# number of islands leetcode solution
+def islands(grid):
+    row = len(grid)
+    col = len(grid[0])
+    visited = [[0  for _ in range(col)] for _ in range(row)]
+    queue = deque()
+    while queue:
+        i,j= queue.popleft()
+        for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
+            new_x, new_y = i + dx, j + dy
+            if 0 <= new_x < row and 0 <= new_y < col and not visited[new_x][new_y]:
+                visited[new_x][new_y] = 1
+                queue.append([new_x, new_y])
+    return ans
+
+ans = islands([
+  ["1","1","0","0","0"],
+  ["1","1","0","0","0"],
+  ["0","0","1","0","0"],
+  ["0","0","0","1","1"]
+])
+print(ans)

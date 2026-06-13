@@ -1,27 +1,31 @@
-from collections import deque
-def wordLadderII(beginWord,endWord,wordList):
-    myset = set(wordList)
-    ans=[]
-    if endWord not in myset:
-        return 0
-    queue = deque()
-    queue.append((beginWord,1))
-    while queue:
-        temp = []
-        ans.append(temp)
-        currWord,level = queue.popleft()
-        if currWord == endWord:
-            return level,ans
-        for i in range(0,len(currWord)):
-            for c in "abcdefghijklmnopqrstuvwxyz":
-                if c == currWord[i]:
-                    continue
-                newWord =currWord[:i]+c+currWord[i+1:] 
-                if newWord in myset:
-                    temp.append(newWord)
-                    queue.append((newWord,level+1))
-                    myset.remove(newWord)
-    return 0
+def islands(grid):
+    def dfs(grid, visited, r, c):
+        if r < 0 or r >= len(grid) or c < 0 or c >= len(grid[0]):
+            return
+        if visited[r][c] ==1:
+            return
+        if grid[r][c]=="0":
+            return
+        visited[r][c] = 1
+        dfs(grid, visited, r - 1, c)
+        dfs(grid, visited, r, c-1)
+        dfs(grid, visited, r, c +1)
+        dfs(grid, visited, r+1, c)
+    count=0
+    rows = len(grid)
+    cols = len(grid[0])
+    visited = [[0 for _ in range(cols)] for _ in range(rows)]
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c]=="1" and visited[r][c]==0:
+                count+=1
+                dfs(grid,visited,r,c)
+    return count
 
-ans = wordLadderII("hit","cog",["hot","dot","dog","lot","log","cog"])
+ans = islands([
+  ["1","1","0","0","0"],
+  ["1","1","0","0","0"],
+  ["0","0","1","0","0"],
+  ["0","0","0","1","1"]
+])
 print(ans)

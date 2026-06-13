@@ -364,18 +364,28 @@ print(ans)
 
 # number of islands leetcode solution
 def islands(grid):
-    row = len(grid)
-    col = len(grid[0])
-    visited = [[0  for _ in range(col)] for _ in range(row)]
-    queue = deque()
-    while queue:
-        i,j= queue.popleft()
-        for dx,dy in [(0,1),(0,-1),(1,0),(-1,0)]:
-            new_x, new_y = i + dx, j + dy
-            if 0 <= new_x < row and 0 <= new_y < col and not visited[new_x][new_y]:
-                visited[new_x][new_y] = 1
-                queue.append([new_x, new_y])
-    return ans
+    def dfs(grid, visited, r, c):
+        if r < 0 or r >= len(grid) or c < 0 or c >= len(grid[0]):
+            return
+        if visited[r][c] ==1:
+            return
+        if grid[r][c]=="0":
+            return
+        visited[r][c] = 1
+        dfs(grid, visited, r - 1, c)
+        dfs(grid, visited, r, c-1)
+        dfs(grid, visited, r, c +1)
+        dfs(grid, visited, r+1, c)
+    count=0
+    rows = len(grid)
+    cols = len(grid[0])
+    visited = [[0 for _ in range(cols)] for _ in range(rows)]
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c]=="1" and visited[r][c]==0:
+                count+=1
+                dfs(grid,visited,r,c)
+    return count
 
 ans = islands([
   ["1","1","0","0","0"],
@@ -384,3 +394,4 @@ ans = islands([
   ["0","0","0","1","1"]
 ])
 print(ans)
+

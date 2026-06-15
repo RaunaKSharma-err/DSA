@@ -1,32 +1,20 @@
-def islands(grid):
-    def dfs(r,c,base_r,base_c,shape,visited,rows,cols,grid):
-        visited[r][c] = 1
-        shape.append((r-base_r,c-base_c))
-        for x,y in [(-1,0),(0,-1),(1,0),(0,1)]:
-            new_i,new_j = r+x,y+c
-            if r < 0 or r >= rows or c < 0 or c >= cols:
-                continue
-            if visited[r][c] ==1:
-                continue
-            if grid[r][c]=="0":
-                continue
-            dfs(new_i,new_j,base_r,base_c,shape,visited,rows,cols,grid)
-    uniqueIsland = set()
-    rows = len(grid)
-    cols = len(grid[0])
-    visited = [[0 for _ in range(cols)] for _ in range(rows)]
-    for r in range(rows):
-        for c in range(cols):
-            if grid[r][c]=="1" and visited[r][c]==0:
-                shape=[]
-                dfs(r,c,r,c,shape,visited,rows,cols,grid)
-                uniqueIsland.add(tuple(shape))
-    return len(uniqueIsland)
+def isBipartite(adjlist):
+    visited=[-1 for _ in range(len(adjlist))]
+    def dfs(node,color):
+        visited[node]=color
+        for neighbour in adjlist[node]:
+            if visited[neighbour]==-1:
+                if dfs(neighbour,1-color):
+                    return True
+            elif visited[neighbour]==color:
+                return False 
+        return True
+    for node in range(len(adjlist)):
+        if visited[node] == -1:
+            if not dfs(node, 0):
+                return False
+    return True
 
-ans = islands([
-  ["0","1","1","0","1","1"],
-  ["0","0","1","0","0","0"],
-  ["1","1","0","1","1","0"],
-  ["0","0","0","0","1","0"]
-])
+adjacency_list = [[1,3],[0,2],[1,3],[0,2]]
+ans = isBipartite(adjacency_list)
 print(ans)

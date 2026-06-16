@@ -419,3 +419,22 @@ def isBipartite(adjlist):
 adjacency_list = [[1,3],[0,2],[1,3],[0,2]]
 ans = isBipartite(adjacency_list)
 print(ans)
+
+# process string with special operations |
+
+def processString(val):
+    res = []
+    for ch in s:
+        if ch == '*':
+            if res:
+                res.pop()
+        elif ch == '#':
+            res.extend(res)
+        elif ch == '%':
+            res.reverse()
+        else:
+            res.append(ch)
+
+    return ''.join(res)
+ans = processString("z*#")
+print(ans)

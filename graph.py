@@ -1,5 +1,5 @@
 from collections import deque
-
+from copy import deepcopy
 def bfs(n, adjacency_list, starting_node):
     ans = []
     queue = deque()
@@ -96,8 +96,8 @@ ans = orangesRotting([[2, 1, 1], [1, 1, 0], [0, 1, 1]])
 print(ans)
    
 #flood fill leetcode problem
-from collections import deque
-from copy import deepcopy
+# from collections import deque
+# from copy import deepcopy
 
 def floodFill(image, sr, sc, newColor):
     rows = len(image)
@@ -121,7 +121,7 @@ ans = floodFill([[1, 1, 1], [1, 1, 0], [1, 0, 1]], 1, 1, 2)
 print(ans)
 
 #detect cycle in undirected graph
-from collections import deque
+# from collections import deque
 def has_cycle(v,e, adjacency_list):
     visited = [False] * (v + 1)
     queue = deque()
@@ -185,7 +185,7 @@ ans = has_cycle_dfs(7, 7,adjacency_list)
 print(ans)
 
 #nearest zero leetcode problem
-from collections import deque
+# from collections import deque
 def nearestZero(mat):
     row = len(mat)
     col = len(mat[0])
@@ -258,7 +258,7 @@ ans = surroundedRegions([["X", "X", "X", "X"], ["X", "O", "O", "X"], ["X", "X", 
 print(ans)
 
 #number of enclaves leetcode problem
-from collections import deque
+# from collections import deque
 def numEnclaves(grid):
     rows = len(grid)
     cols = len(grid[0])
@@ -293,7 +293,7 @@ ans = numEnclaves([[0,0,0,0],[1,0,1,0],[0,1,1,0],[0,0,0,0]])
 print(ans)
 
 # word ladder leetcode solution TC- o(n*m*26) where m is len(newword)
-from collections import deque
+# from collections import deque
 def wordLadder(beginWord,endWord,wordList):
     myset = set(wordList)
     if endWord not in myset:
@@ -318,7 +318,7 @@ ans = wordLadder("hit","cog",["hot","dot","dog","lot","log","cog"])
 print(ans)
 
 # word ladder leetcode solution TC- o(n*m*26) where m is len(newword)
-from collections import deque
+# from collections import deque
 
 def wordLadderII(beginWord, endWord, wordList):
     myset = set(wordList)
@@ -464,7 +464,7 @@ def convert(s,numRows):
 # highest altitude leetcode solution
 
 def highestAltitude(gain):
-    altitude =0
+    altitude =0 
     highest=0
     for g in gain:
         altitude+=g
@@ -472,4 +472,45 @@ def highestAltitude(gain):
     return highest
 
 ans = highestAltitude([-5,1,5,0,-7])
+print(ans)
+
+# detect cycle in directed graph problem
+
+def detectCycleInDG(adj_list):
+    visited = [0 for _ in range(len(adj_list))]
+    pathVisited = [0 for _ in range(len(adj_list))]
+
+    def dfs(currNode,visited,pathVisited,adj_list):
+        visited[currNode]=1
+        pathVisited[currNode]=1
+        for neighbour in adj_list[currNode]:
+            if visited[neighbour]==0:
+                x=dfs(neighbour,visited,pathVisited,adj_list)
+                if x==True:
+                    return True
+            elif pathVisited[neighbour]==1:
+                return True
+        pathVisited[currNode]=0
+        return False
+
+    for i in range(0,len(adj_list)):
+        if visited[i]==0:
+            y = dfs(i,visited,pathVisited,adj_list)
+            if y == True:
+                return True
+    return False
+
+adjacency_list = [
+    [],
+    [2],
+    [3,8],
+    [4,7],
+    [6],
+    [4],
+    [],
+    [5],
+    [9],
+    [10],[8]
+]
+ans = detectCycleInDG(adjacency_list)
 print(ans)

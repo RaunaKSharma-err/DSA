@@ -1,38 +1,28 @@
-def detectCycleInDG(adj_list):
-    visited = [0 for _ in range(len(adj_list))]
-    pathVisited = [0 for _ in range(len(adj_list))]
-
-    def dfs(currNode,visited,pathVisited,adj_list):
-        visited[currNode]=1
-        pathVisited[currNode]=1
-        for neighbour in adj_list[currNode]:
-            if visited[neighbour]==0:
-                x=dfs(neighbour,visited,pathVisited,adj_list)
-                if x==True:
-                    return True
-            elif pathVisited[neighbour]==1:
-                return True
-        pathVisited[currNode]=0
-        return False
-
-    for i in range(0,len(adj_list)):
-        if visited[i]==0:
-            y = dfs(i,visited,pathVisited,adj_list)
-            if y == True:
-                return True
-    return False
+from collections import deque
+def topoSort(adj_list):
+    ans=[]
+    queue = deque()
+    indegrees = [0 for _ in range(len(adj_list))]
+    for u,v in adj_list:
+        adj_list[u].append(v)
+        indegrees[v]+=1
+    for i in range(0,len(indegrees)):
+        if indegrees[i]==0:
+            queue.append(i)
+    while queue:
+        node = queue.popleft()
+        ans.append(node)
+        for neighbour in adj_list[node]:
+            if indegrees[neighbour]-1==0:
+                queue.append(neighbour)
+            indegrees[neighbour]-=1
+    return ans
 
 adjacency_list = [
-    [],
-    [2],
-    [3,8],
-    [4,7],
-    [6],
-    [4],
-    [],
-    [5],
-    [9,10],
-    [10]
+    [0,1],
+    [0,2],
+    [1,2],
+    [2,0]
 ]
-ans = detectCycleInDG(adjacency_list)
+ans = topoSort(adjacency_list)
 print(ans)

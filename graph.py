@@ -605,3 +605,25 @@ adjacency_list = [
 ]
 ans = safeNode(adjacency_list)
 print(ans)
+
+# count subarray with majority element I
+
+def majorityElement(nums , target):
+    n = len(nums)
+    pref = [0] * (n + 1)
+    for i in range(n):
+        pref[i + 1] = pref[i] + (nums[i] == target)
+    ans = 0
+    for l in range(n):
+        for r in range(l, n):
+            cnt = pref[r + 1] - pref[l]
+            length = r - l + 1
+
+            if cnt * 2 > length:
+                ans += 1
+    return ans
+        
+
+
+ans = majorityElement([1,2,2,3],2)
+print(ans)

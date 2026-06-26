@@ -618,12 +618,37 @@ def majorityElement(nums , target):
         for r in range(l, n):
             cnt = pref[r + 1] - pref[l]
             length = r - l + 1
-
             if cnt * 2 > length:
                 ans += 1
     return ans
         
-
-
 ans = majorityElement([1,2,2,3],2)
+print(ans)
+
+# int to roman number leetcode solution
+
+def intToRoman(num):
+    values = [
+        (1000, "M"),
+        (900, "CM"),
+        (500, "D"),
+        (400, "CD"),
+        (100, "C"),
+        (90, "XC"),
+        (50, "L"),
+        (40, "XL"),
+        (10, "X"),
+        (9, "IX"),
+        (5, "V"),
+        (4, "IV"),
+        (1, "I")
+    ]
+    result = ""
+    for value, symbol in values:
+        while num >= value:
+            result += symbol
+            num -= value
+    return result
+
+ans = intToRoman(51)
 print(ans)

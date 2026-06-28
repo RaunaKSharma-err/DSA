@@ -652,3 +652,12 @@ def intToRoman(num):
 
 ans = intToRoman(51)
 print(ans)
+
+# maximum Element After Decrementing And Rearranging leetcode solution
+
+def maximumElementAfterDecrementingAndRearranging(arr):
+        arr.sort()
+        arr[0] = 1
+        for i in range(1, len(arr)):
+            arr[i] = min(arr[i], arr[i - 1] + 1)
+        return arr[-1]

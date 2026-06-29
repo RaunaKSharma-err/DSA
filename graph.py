@@ -661,3 +661,15 @@ def maximumElementAfterDecrementingAndRearranging(arr):
         for i in range(1, len(arr)):
             arr[i] = min(arr[i], arr[i - 1] + 1)
         return arr[-1]
+
+# Number of Strings That Appear as Substrings in Word leetcode problem
+
+def numberOfString(patterns,word):
+    count=0
+    for pattern in patterns:
+        if pattern in word:
+            count+=1
+    return count
+
+ans = numberOfString(["a","a","a"],"ab")
+print(ans)

@@ -675,18 +675,21 @@ ans = numberOfString(["a","a","a"],"ab")
 print(ans)
 
 # sum And Multiply
-def sumAndMultiply(nums):
-    total = 0
-    val = 0
-    place = 1
-    while nums:
-        digit = nums % 10
-        if digit:
-            total += digit
-            val += digit * place
-            place *= 10
-        nums //= 10
-    return total * val
+def sumAndMultiply(s,queries):
+    ans = []
+    for l, r in queries:
+        total = 0
+        val = 0
+        place = 1
+        for ch in reversed(s[l:r+1]):
+            if ch != '0':
+                d = ord(ch) - ord('0')
+                total += d
+                val += d * place
+                place *= 10
 
-ans = sumAndMultiply(10203004)
+        ans.append(total * val)
+    return ans
+
+ans = sumAndMultiply("10203004",[[0,7],[1,3],[4,6]])
 print(ans)

@@ -683,7 +683,7 @@ def sumAndMultiply(s,queries):
         place = 1
         for ch in reversed(s[l:r+1]):
             if ch != '0':
-                d = ord(ch) - ord('0')
+                d = ord(ch) - ord('0') 
                 total += d
                 val += d * place
                 place *= 10
@@ -692,4 +692,32 @@ def sumAndMultiply(s,queries):
     return ans
 
 ans = sumAndMultiply("10203004",[[0,7],[1,3],[4,6]])
+print(ans)
+
+# shortest path in undirected graph 
+from collections import deque
+def shortestPath(src, adjList):
+    distance = [-1]*len(adjList)
+    distance[src] = 0
+    queue = deque([(src,0)])
+    while queue:
+        node,dist = queue.popleft()
+        for neighbor in adjList[node]:
+            if distance[neighbor]==-1:
+                distance[neighbor] = dist+1
+                queue.append((neighbor,dist+1))
+    return distance
+
+adjList= [
+    [1,2],
+    [0,2,4],
+    [0,1,3],
+    [2,5],
+    [1,6],
+    [3,6],
+    [4,5,7,8],
+    [6,8],
+    [6,7]
+]
+ans = shortestPath(0,adjList)
 print(ans)

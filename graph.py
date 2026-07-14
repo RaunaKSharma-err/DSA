@@ -802,3 +802,16 @@ edges= [
 ]
 ans = dijkstraSet(edges,0)
 print(ans)
+
+# sequential digits leetcode solution
+def sequentialDigits(low, high):
+    ans = []
+    for start in range(1, 10):
+        num = start
+        for nxt in range(start + 1, 10):
+            num = num * 10 + nxt
+            if low <= num <= high:
+                ans.append(num)
+    return sorted(ans)
+ans = sequentialDigits(1000,13000)
+print(ans)

@@ -858,3 +858,55 @@ edges= [
 ]
 ans = shortesPath(edges,1,5)
 print(ans)
+
+# shortest path leetcode solution tc-> m*n
+from collections import deque
+def shortestPathBinaryMatrix(grid):
+    distance = [[-1] *len(grid[0]) for _ in range(len(grid))]
+    if grid[0][0] == 1 or grid[len(grid)-1][len(grid[0])-1] == 1:
+        return -1
+    queue = deque([[0,0,1]])
+    distance[0][0] = 1
+    while queue:
+        r,c,dist = queue.popleft()
+        if r == len(grid)-1 and c == len(grid[0])-1:
+            return dist
+        for dx,dy in [(-1,0),(0,-1),(1,0),(0,1),(-1,-1),(-1,1),(1,-1),(1,1)]:
+            new_r,new_c = r+dx,c+dy
+            if new_r < 0 or new_r >= len(grid) or new_c < 0 or new_c >= len(grid[0]):
+                continue
+            if grid[new_r][new_c] == 1:
+                continue
+            if distance[new_r][new_c] != -1:
+                continue
+            distance[new_r][new_c] = dist+1
+            queue.append([new_r,new_c,dist+1])
+    return distance[len(grid)-1][len(grid[0])-1]
+
+ans = shortestPathBinaryMatrix([[0,1],[1,0]])
+print(ans)
+
+# path with minimum effort leetcode solution
+import heapq,sys
+def minimumEffortPath(grid):
+    row = len(grid)
+    col = len(grid[0])
+    effortArray = [[sys.maxsize] *col for _ in range(row)]
+    PriorityQueue = [[0,0,0]]
+    effortArray[0][0] = 0
+    while PriorityQueue:
+        r,c,effort = heapq.heappop(PriorityQueue)
+        if r == row-1 and c == col-1:
+            return effort
+        for dx,dy in [(-1,0),(0,-1),(1,0),(0,1)]:
+            new_r,new_c = r+dx,c+dy
+            if new_r < 0 or new_r >= row or new_c < 0 or new_c >= col:
+                continue
+            newEffort = max(effort,abs(grid[new_r][new_c] - grid[r][c]))
+            if newEffort < effortArray[new_r][new_c]:
+                effortArray[new_r][new_c] = newEffort
+                heapq.heappush(PriorityQueue, (new_r, new_c, newEffort))
+    return effort
+
+ans = minimumEffortPath([[1,2,2],[3,8,2],[5,3,5]])
+print(ans)

@@ -1,23 +1,23 @@
-import heapq,sys
-def minimumEffortPath(grid):
-    row = len(grid)
-    col = len(grid[0])
-    effortArray = [[sys.maxsize] *col for _ in range(row)]
-    PriorityQueue = [[0,0,0]]
-    effortArray[0][0] = 0
-    while PriorityQueue:
-        r,c,effort = heapq.heappop(PriorityQueue)
-        if r == row-1 and c == col-1:
-            return effort
-        for dx,dy in [(-1,0),(0,-1),(1,0),(0,1)]:
-            new_r,new_c = r+dx,c+dy
-            if new_r < 0 or new_r >= row or new_c < 0 or new_c >= col:
-                continue
-            newEffort = max(effort,abs(grid[new_r][new_c] - grid[r][c]))
-            if newEffort < effortArray[new_r][new_c]:
-                effortArray[new_r][new_c] = newEffort
-                heapq.heappush(PriorityQueue, (new_r, new_c, newEffort))
-    return effort
+import heapq
+def findCheapestPrice(n, flights, src, dst, k):
+    adj_list = [[] for _ in range(n)]
+    for u,v,w in flights:
+        adj_list[u].append([v,w])
+    heap = [(0, src, 0)]
+    dist = [[float('inf')] * (k + 2) for _ in range(n)]
+    dist[src][0] = 0
+    while heap:
+        cost, node, stops = heapq.heappop(heap)
+        if node == dst:
+            return cost
+        if stops == k + 1:
+            continue
+        for nei, price in adj_list[node]:
+            new_cost = cost + price
+            if new_cost < dist[nei][stops + 1]:
+                dist[nei][stops + 1] = new_cost
+                heapq.heappush(heap, (new_cost, nei, stops + 1))
+    return -1
 
-ans = minimumEffortPath([[1,2,2],[3,8,2],[5,3,5]])
+ans = findCheapestPrice(3,[[0,1,100],[1,2,100],[0,2,500]], 0, 2, 0)
 print(ans)

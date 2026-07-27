@@ -964,3 +964,7 @@ def shortestWays(n, roads):
 ans = shortestWays(7,[[0,6,7],[0,1,2],[1,2,3],[1,3,3],[6,3,3],[3,5,1],[6,5,1],[2,5,1],[0,4,5],[4,6,2]])
 print(ans)
 
+def maxProduct(nums):
+    nums.sort()
+    return (nums[-1]-1)*(nums[-2]-1)
+print(maxProduct([1,5,4,5]))

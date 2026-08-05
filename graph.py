@@ -978,3 +978,13 @@ def minimumPushes(val):
     return count
 ans = minimumPushes("xycdefghij")
 print(ans)
+
+# find the minimum in the BST 
+
+def findMinimumBst(root):
+    while root and root.left:
+        root = root.left
+    return root.val
+
+ans = findMinimumBst()
+print(ans)

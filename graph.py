@@ -982,9 +982,25 @@ print(ans)
 # find the minimum in the BST 
 
 def findMinimumBst(root):
-    while root and root.left:
+    while root.left.left:
         root = root.left
-    return root.val
-
-ans = findMinimumBst()
+    return root.left.val - root.left.left.val
+ans = findMinimumBst([4,2,6,1,3])
 print(ans)
+
+# find the ceil in the BST 
+def findCeilInBst(root,ceil):
+    ceil = -1
+    while root and root.val != ceil:
+        if root.val == ceil:
+            return root.val
+        elif root.val < ceil:
+            root = root.right
+        else:
+            root = root.left
+            ceil = root.val
+    return ceil
+
+ans = findCeilInBst([],9)
+print(ans)
+

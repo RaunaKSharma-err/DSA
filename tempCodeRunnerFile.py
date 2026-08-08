@@ -4,41 +4,26 @@ class TreeNode:
         self.left = left
         self.right = right
 
-# def insertIntoBST(root,node):
-#     if not root:
-#         return TreeNode(node)
-#     if root.val < node:
-#         newnode = TreeNode(node)
-#         newnode.left = root
-#         newnode.right = root.right
-#         root.right = newnode
-#         root = newnode
-#     else:
-#         newnode = TreeNode(node)
-#         newnode.right = root
-#         newnode.left = root.left
-#         root.left = newnode
-#         root = newnode
-#     return root
-
-# ans = insertIntoBST(TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7)), 5)
-# print(ans)
-
-def insertIntoBst(root,node):
-    temp = root 
-    newnode = TreeNode(node)
-    while temp:
-        if temp.val < node:
-            if temp.right is None:
-                temp.right = newnode
-                break
+def deleteNode(root,key):
+    temp = root
+    if not root:
+        return None
+    while temp and temp.val != key:
+        if temp.val == key:
+            if temp.right:
+                while temp.right:
+                    temp.val = temp.right.val
+                    temp = temp.right
+            else:
+                while temp.left:
+                    temp.val = temp.left.val
+                    temp = temp.left
+            temp.val = None
+        elif temp.val < key:
             temp = temp.right
-        else:
-            if temp.left is None:
-                temp.left = newnode
-                break
+        else: 
             temp = temp.left
     return root
-
-ans = insertIntoBst(TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7)), 5)
+        
+ans = deleteNode(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7))), 3)
 print(ans)

@@ -1,5 +1,7 @@
 from collections import deque
 from copy import deepcopy
+
+from sympy import root
 def bfs(n, adjacency_list, starting_node):
     ans = []
     queue = deque()
@@ -1066,4 +1068,33 @@ def insertIntoBst(root,val):
     return root
 
 ans = insertIntoBst(TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7)), 5)
+print(ans)
+
+# delete a node in binary search tree leetcode solution
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def deleteNode(root, key):
+    if not root:
+        return None
+    if key < root.val:
+        root.left = deleteNode(root.left, key)
+    elif key > root.val:
+        root.right = deleteNode(root.right, key)
+    else:
+        if not root.left:
+            return root.right
+        if not root.right:
+            return root.left
+        successor = root.right
+        while successor.left:
+            successor = successor.left
+        root.val = successor.val
+        root.right = deleteNode(root.right, successor.val)
+    return root
+
+ans = deleteNode(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7))), 3)
 print(ans)

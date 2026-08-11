@@ -1098,3 +1098,24 @@ def deleteNode(root, key):
 
 ans = deleteNode(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7))), 3)
 print(ans)
+
+# Morris algorithm for inorder traversal of binary tree
+def morrisTraversal(root):
+    result = []
+    current = root
+    while current:
+        if not current.left:
+            result.append(current.val)
+            current = current.right
+        else:
+            predecessor = current.left
+            while predecessor.right and predecessor.right != current:
+                predecessor = predecessor.right
+            if not predecessor.right:
+                predecessor.right = current
+                current = current.left
+            else:
+                predecessor.right = None
+                result.append(current.val)
+                current = current.right
+    return result

@@ -1,7 +1,5 @@
 from collections import deque
 from copy import deepcopy
-
-from sympy import root
 def bfs(n, adjacency_list, starting_node):
     ans = []
     queue = deque()
@@ -1071,11 +1069,7 @@ ans = insertIntoBst(TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(
 print(ans)
 
 # delete a node in binary search tree leetcode solution
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+
 
 def deleteNode(root, key):
     if not root:
@@ -1100,6 +1094,7 @@ ans = deleteNode(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, 
 print(ans)
 
 # Morris algorithm for inorder traversal of binary tree
+
 def morrisTraversal(root):
     result = []
     current = root
@@ -1119,3 +1114,35 @@ def morrisTraversal(root):
                 result.append(current.val)
                 current = current.right
     return result
+
+ans = morrisTraversal(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7))))
+print(ans)
+
+# find the kth smallest element in the BST leetcode solution
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def kthSmallest(root,k):
+    result = []
+    current = root
+    while current and len(result) < k:
+        if not current.left:
+            result.append(current.val)
+            current = current.right
+        else:
+            predecessor = current.left
+            while predecessor.right and predecessor.right != current:
+                predecessor = predecessor.right
+            if not predecessor.right:
+                predecessor.right = current
+                current = current.left
+            else:
+                predecessor.right = None
+                result.append(current.val)
+                current = current.right
+    return result[k-1]
+ans = kthSmallest(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7))), 3)
+print(ans)

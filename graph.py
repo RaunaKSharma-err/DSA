@@ -1119,11 +1119,7 @@ ans = morrisTraversal(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNod
 print(ans)
 
 # find the kth smallest element in the BST leetcode solution
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+
 
 def kthSmallest(root,k):
     result = []
@@ -1145,4 +1141,27 @@ def kthSmallest(root,k):
                 current = current.right
     return result[k-1]
 ans = kthSmallest(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7))), 3)
+print(ans)
+
+# Validate Binary Search Tree leetcode solution
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def validateBST(root):
+    def solve(node,limit):
+        if node is None:
+            return True
+        if not limit[0]<node.val<limit[1]:
+            return False
+        left = solve(node.left,[limit[0],node.val])
+        if left == False:
+            return False
+        right = solve(node.right,[node.val,limit[1]])
+        return left and right
+    return solve(root,[float("-inf"),float("inf")])
+
+ans = validateBST(TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7)))
 print(ans)

@@ -4,14 +4,14 @@ class TreeNode:
         self.left = left
         self.right = right
 
-def kthSmallest(root,k):
-    result = []
+def validateBST(root):
     current = root
-    while current and len(result) < k:
+    while current:
         if not current.left:
-            result.append(current.val)
             current = current.right
         else:
+            # if current.left.val < root.val: 
+            #     return False
             predecessor = current.left
             while predecessor.right and predecessor.right != current:
                 predecessor = predecessor.right
@@ -20,8 +20,10 @@ def kthSmallest(root,k):
                 current = current.left
             else:
                 predecessor.right = None
-                result.append(current.val)
+                if current.val < root.val and current.left.val > current.right.val or current.val > root.val and current.left.val < current.right.val:
+                    return False
                 current = current.right
-    return result[k-1]
-ans = kthSmallest(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7))), 3)
+    return True
+
+ans = validateBST(TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7)))
 print(ans)

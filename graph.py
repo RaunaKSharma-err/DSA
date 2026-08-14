@@ -1144,11 +1144,6 @@ ans = kthSmallest(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6,
 print(ans)
 
 # Validate Binary Search Tree leetcode solution
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
 
 def validateBST(root):
     def solve(node,limit):
@@ -1163,5 +1158,30 @@ def validateBST(root):
         return left and right
     return solve(root,[float("-inf"),float("inf")])
 
-ans = validateBST(TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7)))
+ans = validateBST(TreeNode(6,TreeNode(2,TreeNode(0),TreeNode(4,TreeNode(3),TreeNode(5)),TreeNode(8)),TreeNode(8,TreeNode(7),TreeNode(9))))
 print(ans)
+
+# Lowest common ancestor leetcode solution
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def lcm(root,p,q):
+   current = root
+   while True:
+        if current.val < p and current.val < q:
+           current = current.right
+        elif current.val > p and current.val > q:
+           current = current.left
+        elif p == current.val:
+            return p
+        elif q== current.val:
+            return q
+        else:
+            return current
+
+ans = lcm(TreeNode(6,TreeNode(2,TreeNode(0),TreeNode(4,TreeNode(3),TreeNode(5))),TreeNode(8,TreeNode(7),TreeNode(9))),2,8)
+print(ans)
+

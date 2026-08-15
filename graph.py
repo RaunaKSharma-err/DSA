@@ -1162,11 +1162,6 @@ ans = validateBST(TreeNode(6,TreeNode(2,TreeNode(0),TreeNode(4,TreeNode(3),TreeN
 print(ans)
 
 # Lowest common ancestor leetcode solution
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
 
 def lcm(root,p,q):
    current = root
@@ -1185,3 +1180,62 @@ def lcm(root,p,q):
 ans = lcm(TreeNode(6,TreeNode(2,TreeNode(0),TreeNode(4,TreeNode(3),TreeNode(5))),TreeNode(8,TreeNode(7),TreeNode(9))),2,8)
 print(ans)
 
+# predecessor successor leetcode solution  [Better solution]
+
+def preSuccessor(root,val):
+    current = root
+    while current:
+        if not current.left:
+            current = current.right
+        else:
+            predecessor = current.left
+            while predecessor.right and predecessor.right != current:
+                predecessor = predecessor.right
+            if not predecessor.right:
+                predecessor.right = current
+                current = current.left
+            else:
+                predecessor.right = None
+                if current.val > val:
+                    return current.val
+                current = current.right
+    return -1
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def preSuc(root,num):
+    current = root
+    sucessor=None
+    while current:
+        if  current.val > num:
+            sucessor=current.val
+            current = current.left
+        else:
+            current = current.right
+    return sucessor
+
+ans = preSuc(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7))), 3)
+print(ans)
+
+# Maximum Length Substring With Two Occurrences leetcode solution
+
+def maximumLengthSubstring(s):
+    count = {}
+    left = 0
+    ans = 0
+
+    for right in range(len(s)):
+        count[s[right]] = count.get(s[right], 0) + 1
+
+        while count[s[right]] > 2:
+            count[s[left]] -= 1
+            left += 1
+
+        ans = max(ans, right - left + 1)
+
+    return ans
+        

@@ -4,19 +4,16 @@ class TreeNode:
         self.left = left
         self.right = right
 
-def lcm(root,p,q):
-   current = root
-   while True:
-        if current.val < p and current.val < q:
-           current = current.right
-        elif current.val > p and current.val > q:
-           current = current.left
-        elif p == current.val:
-            return p
-        elif q== current.val:
-            return q
+def preSuc(root,num):
+    current = root
+    sucessor=None
+    while current:
+        if  current.val > num:
+            sucessor=current.val
+            current = current.left
         else:
-            return current
+            current = current.right
+    return sucessor
 
-ans = lcm(TreeNode(6,TreeNode(2,TreeNode(0),TreeNode(4,TreeNode(3),TreeNode(5))),TreeNode(8,TreeNode(7),TreeNode(9))),2,8)
+ans = preSuc(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7))), 3)
 print(ans)

@@ -1201,12 +1201,6 @@ def preSuccessor(root,val):
                 current = current.right
     return -1
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
 def preSuc(root,num):
     current = root
     sucessor=None
@@ -1239,3 +1233,34 @@ def maximumLengthSubstring(s):
 
     return ans
         
+# Range sum of bst
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+        
+def rangeSumBST(root, low, high):
+    result = 0
+    current = root
+    while current and current.val <= high:
+        if not current.left:
+            if low <= current.val <=high:
+                result+=current.val
+            current = current.right
+        else:
+            predecessor = current.left
+            while predecessor.right and predecessor.right != current:
+                predecessor = predecessor.right
+            if not predecessor.right:
+                predecessor.right = current
+                current = current.left
+            else:
+                predecessor.right = None
+                if low <= current.val <=high:
+                    result+=current.val
+                current = current.right
+    return result
+
+ans = rangeSumBST(TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7))), 2,5)
+print(ans)

@@ -709,3 +709,33 @@ target=4
 result=[]
 ans = solve([],0,0)
 print(ans,result)
+
+def backtrack(flag,nums,index):
+    if index >= len(nums):
+        result.append("".join(nums))
+        return
+    nums[index] = "0"
+    backtrack(True,nums,index+1)
+    if flag == True:
+        nums[index]= "1"
+        backtrack(False,nums,index+1)
+        nums[index]="0"
+
+nums=[0]*3
+result=[]
+backtrack(True,nums,0)
+print(result)
+
+def myPow(x,n):
+    if n == 0:
+        return 1
+    if n < 0:
+        return 1 / myPow(x, -n)
+    half = myPow(x, n // 2)
+    if n % 2 == 0:
+        return half * half
+    else:
+        return half * half * x
+
+ans = myPow(2.00000,10)
+print(ans)

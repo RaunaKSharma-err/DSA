@@ -1,21 +1,13 @@
-def solve(subseq,index,total):
-    if index >= len(lst):
-        if target == total:
-            result.append(subseq.copy())
-            return  True
-        return
-    subseq.append(lst[index])
-    total += lst[index]
-    if solve(subseq,index+1,total):
-        return True
-    val = subseq.pop()
-    total -= val
-    if solve(subseq,index+1,total):
-        return True
-    return  False
+def myPow(x,n):
+    if n == 0:
+        return 1
+    if n < 0:
+        return 1 / myPow(x, -n)
+    half = myPow(x, n // 2)
+    if n % 2 == 0:
+        return half * half
+    else:
+        return half * half * x
 
-lst = [5,9,3,4,1]
-target=4
-result=[]
-ans = solve([],0,0)
-print(ans,result)
+ans = myPow(2.00000,10)
+print(ans)

@@ -1,14 +1,18 @@
-def solve(subseq,index):
+def solve(subseq,index,total):
     if index >= len(lst):
-        result.append(subseq.copy())
+        if target == total:
+            result.append(subseq.copy())
         return
     subseq.append(lst[index])
-    solve(subseq,index+1)
-    subseq.pop()
-    solve(subseq,index+1)
+    total += lst[index]
+    solve(subseq,index+1,total)
+    val = subseq.pop()
+    total -= val
+    solve(subseq,index+1,total)
     return
 
-result=[]
-lst = [1,5,8,9]
-solve([],0)
+lst = [5,9,3,4,1]
+result = []
+target=9
+solve([],0,0)
 print(result)

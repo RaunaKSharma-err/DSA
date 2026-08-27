@@ -1,13 +1,16 @@
-def myPow(x,n):
-    if n == 0:
-        return 1
-    if n < 0:
-        return 1 / myPow(x, -n)
-    half = myPow(x, n // 2)
-    if n % 2 == 0:
-        return half * half
-    else:
-        return half * half * x
+def solve(res,total,index):
+    if index >= 6:
+        if total == 0:
+            result.append("".join(res))
+        return
+    if total < 0 or total >3:
+        return
+    res[index]="("
+    solve(res,total+1,index+1)
+    res[index]=")"
+    solve(res,total-1,index+1)
 
-ans = myPow(2.00000,10)
-print(ans)
+result=[]
+brackets=[""]*6
+solve(brackets,0,0)
+print(result)

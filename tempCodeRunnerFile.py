@@ -1,16 +1,18 @@
-def solve(res,total,index):
-    if index >= 6:
-        if total == 0:
-            result.append("".join(res))
+def backtrack(res,index,sum):
+    if index >=len(nums) or sum < 0:
         return
-    if total < 0 or total >3:
+    if sum == 0:
+        result.append(res.copy())
         return
-    res[index]="("
-    solve(res,total+1,index+1)
-    res[index]=")"
-    solve(res,total-1,index+1)
+    res.append(nums[index])
+    sum -= nums[index]
+    backtrack(res,index,sum)
+    sum += nums[index]
+    res.pop()
+    backtrack(res,index+1,sum) 
 
+nums = [2,3,6,7]
+target=7
 result=[]
-brackets=[""]*6
-solve(brackets,0,0)
+backtrack([],0,7)
 print(result)

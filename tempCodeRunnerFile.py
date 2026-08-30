@@ -1,11 +1,8 @@
-def isPowerOfThree(n):
-    if n <= 0:
-        return False
-    if n == 1:
-        return True
-    if n % 3 != 0:
-        return False
-    return isPowerOfThree(n // 3)
-
-ans = isPowerOfThree(27)
+def fib(n):
+    if n==1:
+        return 1
+    if n==0:
+        return 0
+    return fib(n-1)+fib(n-2)
+ans = fib(8)
 print(ans)

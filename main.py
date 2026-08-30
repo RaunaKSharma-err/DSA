@@ -788,3 +788,12 @@ def isPowerOfThree(n):
 
 ans = isPowerOfThree(27)
 print(ans)
+
+def fib(n):
+    if n==1:
+        return 1
+    if n==0:
+        return 0
+    return fib(n-1)+fib(n-2)
+ans = fib(8)
+print(ans)

@@ -1,15 +1,22 @@
-def solve(val,index):
-    if index >= len(lst) or len(val)>3:
+def letterCombination(index,digits,subset):
+    if index >= len(digits):
+        result.append("".join(subset))
         return
-    if len(val) == 3 and int(val)%2==0:
-        result.append(int(val.copy()))
-        return
-    val += str(lst[index])
-    solve(val,index+1)
-    val = val[:-1]
-    solve(val,index+1)
+    for ch in use_map[digits[index]]:
+        subset.append(ch)
+        letterCombination(index+1,digits,subset)
+        subset.pop()
 
-lst = [2,1,3,0]
-result = []
-solve("",0)
+use_map = {
+    "2": "abc",
+    "3": "def",
+    "4": "ghi",
+    "5": "jkl",
+    "6": "mno",
+    "7": "pqrs",
+    "8": "tuv",
+    "9": "wxyz",
+}
+result=[]
+letterCombination(0,"46",[])
 print(result)

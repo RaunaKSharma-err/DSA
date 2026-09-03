@@ -837,3 +837,33 @@ use_map = {
 result=[]
 letterCombination(0,"46",[])
 print(result)
+
+def solve(n):
+    result = [["."] * n for _ in range(n)]
+    rows = set()
+    diag1 = set()
+    diag2 = set()
+    def backtrack(col):
+        if col == n:
+            return True
+        for row in range(n):
+            if (
+                row not in rows
+                and row - col not in diag1
+                and row + col not in diag2
+            ):
+                result[row][col] = "Q"
+                rows.add(row)
+                diag1.add(row - col)
+                diag2.add(row + col)
+                if backtrack(col + 1):
+                    return True
+                result[row][col] = "."
+                rows.remove(row)
+                diag1.remove(row - col)
+                diag2.remove(row + col)
+        return False
+    backtrack(0)
+    return ["".join(row) for row in result]
+ans = solve(4)
+print(ans)

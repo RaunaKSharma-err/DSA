@@ -1,22 +1,27 @@
-def letterCombination(index,digits,subset):
-    if index >= len(digits):
-        result.append("".join(subset))
-        return
-    for ch in use_map[digits[index]]:
-        subset.append(ch)
-        letterCombination(index+1,digits,subset)
-        subset.pop()
+def solve(n):
+    result = [["."]*n for _ in range(n)]
+    def issafe(row,col):
+        for dx,dy in [[-1,-1],[1,-1],[0,-1]]:
+            r = row
+            c = col
+            while  0 <= r < n and 0 <= c < n :
+                if result[r][c] == "Q":
+                    return False
+                r+=dx
+                c+=dy
+        return True
+    def backtrack(col):
+        if col == n:
+            return True
+        for row in range(n):
+            if issafe(row, col):
+                result[row][col] = "Q"
+                if backtrack(col + 1):
+                    return True
+                result[row][col] = "."
+        return False
 
-use_map = {
-    "2": "abc",
-    "3": "def",
-    "4": "ghi",
-    "5": "jkl",
-    "6": "mno",
-    "7": "pqrs",
-    "8": "tuv",
-    "9": "wxyz",
-}
-result=[]
-letterCombination(0,"46",[])
-print(result)
+    backtrack(0)
+    return ["".join(result[i]) for i in range(n)]
+ans = solve(4)
+print(ans)

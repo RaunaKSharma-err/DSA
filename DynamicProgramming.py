@@ -1,0 +1,38 @@
+# climbing stairs leetcode problem
+
+# ----recursive solution -----
+def climbingStairs(index):
+    if index ==1 or index ==0:
+        return 1
+    return climbingStairs(index-1)+climbingStairs(index-2)
+
+# ----memoization solution ----
+dp = [-1]*(5+1)
+def climbingStairs(index,dp):
+    if index ==1 or index ==0:
+        return 1
+    if dp[index]!=-1:
+        return dp[index]
+    dp[index] = climbingStairs(index-1,dp)+climbingStairs(index-2,dp)
+    return dp[index]
+
+# ----tablulation solution ----
+def climbingStairs(index,dp):
+    dp[0]=1
+    dp[1]=1
+    for i in range(2,index+1):
+        dp[i]=dp[i-1]+dp[i-2]
+    return dp[index]
+
+# ----tabulation solution ----
+def climbingStairs(index):
+    prev=1
+    prev1=1
+    for _ in range(2,index+1):
+        curr = prev+prev1
+        prev = prev1
+        prev1=curr
+    return prev1
+
+ans = climbingStairs(5)
+print(ans)

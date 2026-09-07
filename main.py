@@ -212,13 +212,11 @@ combinationSum2(0, target, subset)
 print(result)
 
 # combination sums problem |||
-
-
 def combinationSum3(last, total, subset):
-    if total == n and len(subset) == k:
+    if total == n and len(subset) == total:
         result.append(subset.copy())
         return
-    if total > n or len(subset) > k:
+    if total > n or len(subset) > total:
         return
     for i in range(last, 10):
         sum = total + i
@@ -226,12 +224,10 @@ def combinationSum3(last, total, subset):
         combinationSum3(i + 1, sum, subset)
         subset.pop()
 
-
 target = 4
 result = []
 subset = []
 nums = [1, 1, 1, 2, 3]
-
 combinationSum3(0, target, subset)
 print(result)
 

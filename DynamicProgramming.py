@@ -33,7 +33,6 @@ def climbingStairs(index):
     for _ in range(2,index+1):
         prev,prev1 = prev1,prev+prev1
     return prev1
-
 ans = climbingStairs(5)
 print(ans)
 
@@ -51,4 +50,13 @@ def robHouse(index):
 
 nums=[2,7,9,3,1]
 ans = robHouse(len(nums))
+print(ans)
+
+def solve(index,maximum):
+    if index >= len(nums[0]-1):
+        return
+    maximum = nums[0][index] + nums[1][index+1]
+
+nums = [[20,60,2],[10,130,12]]
+ans = solve(0)
 print(ans)

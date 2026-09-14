@@ -1,15 +1,18 @@
-def robHouse(index):
-    prev=nums[0]
-    prev1 = 0
-    for i in range(1,index):
-        if i >1:
-            pick = nums[i]+prev1
-        else:
-            pick = nums[i]
-        notpick = 0+prev
-        prev,prev1 = max(pick,notpick),prev
-    return prev
+subset = ["0"] * 3
+result = []
 
-nums=[2,7,9,3,1]
-ans = robHouse(len(nums))
-print(ans)
+
+def generateAllBinaryString(index, flag, subset, result):
+    if index >= len(subset):
+        result.append("".join(subset))
+        return
+    subset[index] = "0"
+    generateAllBinaryString(index + 1, True, subset, result)
+    if flag == True:
+        subset[index] = "1"
+        generateAllBinaryString(index + 1, False, subset, result)
+        subset[index] = "0"
+
+
+generateAllBinaryString(0, True, subset, result)
+print(result)

@@ -62,24 +62,23 @@ ans = solve(0)
 print(ans)
 
 
-#unique paths leetcode solution
+# Unique paths leetcode solution
 
-def uniquePaths(m,n):
+def uniquePaths(obstacleGrid):
+    m = len(obstacleGrid)
+    n = len(obstacleGrid[0])
     prev = [0]*n
     for i in range(m):
         curr=[0]*n
-        for j in range(m):
-            if i==0 and j ==0:
-                curr[0]=1
+        for j in range(n):
+            if i == 0 and j == 0 and obstacleGrid[i][j]!=1:
+                curr[j] = 1
             else:
-                if i > 0:
-                    up = prev[j]
-                else:
-                    up = 0
-                if j == 0 :
-                    left =0
-                else:
-                    left = curr[j-1]
+                up = prev[j] if i > 0 and obstacleGrid[i][j] != 1 else 0
+                left = curr[j - 1] if j > 0 and obstacleGrid[i][j] != 1 else 0
                 curr[j] = up + left
-        prev = curr.copy()
+        prev = curr
     return prev[n-1]
+ans = uniquePaths([[0,0,0],[0,1,0],[0,0,0]])
+print(ans)
+

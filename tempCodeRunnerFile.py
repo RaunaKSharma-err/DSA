@@ -33,20 +33,29 @@ def minFallingPathSum(grid):
     
     #tabulation
     def tabulation():
-        for i in range(r):
+        for j in range(r):
+            dp[r-1][j] = grid[r-1][j]
+        for i in range(r-2,-1,-1):
             for j in range(r):
-                if j < 0 or j >= r:
-                    return float("inf")
-                if i == r-1 :
-                    return grid[i][j]
-                if dp[i][j] != -1:
-                    dp[i][j] = grid[i][j]
-                down = grid[i][j] + dp[i + 1][j]
-                leftDiagonal = grid[i][j] + dp[i + 1][j+1]
-                rightDiagonal = grid[i][j] + dp[i + 1][j-1]
-                dp[i][j] =  min(down, leftDiagonal, rightDiagonal)
-        return dp[r-1][r-1]
-    return tabulation()
+                down = dp[i+1][j]
+                leftDiagonal = dp[i+1][j-1] if j > 0 else float("inf")
+                rightDiagonal = dp[i+1][j+1] if j < r-1 else float("inf")
+                dp[i][j] = grid[i][j] + min(down, leftDiagonal, rightDiagonal)
+        return min(dp[0])
+
+    #Tabulation with space optimization
+    def SOtabulation():
+        prev = grid[r-1]
+        for i in range(r-2,-1,-1):
+            curr = [-1]*r
+            for j in range(r):
+                down = prev[j]
+                leftDiagonal = prev[j-1] if j > 0 else float("inf")
+                rightDiagonal = prev[j+1] if j < r-1 else float("inf")
+                curr[j] = grid[i][j] + min(down, leftDiagonal, rightDiagonal)
+            prev = curr
+        return min(prev)
+    return SOtabulation()
  
 ans = minFallingPathSum([[2,1,3],[6,5,4],[7,8,9]])
 print(ans)

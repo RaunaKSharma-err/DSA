@@ -199,30 +199,68 @@ print(ans)
 
 def cherryPickup(grid):
     r = len(grid)
-    c=len(grid[0])
-    print(grid)
-    def Recursion(i,j):
-        if j < 0 or j >= c:
-            return -1
-        if i == r-1 :
-            return grid[i][j]
-        down = Recursion(i + 1, j)
-        leftDiagonal = Recursion(i + 1, j - 1)
-        rightDiagonal = Recursion(i + 1, j + 1)
-        print(down, leftDiagonal, rightDiagonal)
-        temp = max(down, leftDiagonal, rightDiagonal)
-        print(temp)
-        if temp == down:
-            grid[i+1][j]=-1
-        elif temp == leftDiagonal:
-            grid[i+1][j-1]=-1
+    c = len(grid[0])
+    dp = [[[-1 for _ in range(c)]for _ in range(c)]for _ in range(r)]
+    def Recursion(i, j1, j2):
+        if j1 < 0 or j1 >= c or j2 < 0 or j2 >= c:
+            return float("-inf")
+        
+        if i == r - 1:
+            if j1 == j2:
+                return grid[i][j1]
+            return grid[i][j1] + grid[i][j2]
+        
+        if j1 == j2:
+            current = grid[i][j1]
         else:
-            grid[i+1][j+1]=-1
-        return temp+grid[i][j]
-    print(Recursion(0,0))
-    print(grid)
-    print(Recursion(0,r-1))
+            current = grid[i][j1] + grid[i][j2]
+
+        maxi = float("-inf")
+
+        for new_j1 in range(-1, 2):
+            for new_j2 in range(-1, 2):
+                ans = current + Recursion(
+                    i + 1,
+                    j1 + new_j1,
+                    j2 + new_j2
+                )
+                maxi = max(maxi, ans)
+        return maxi
+
+    def Memoization(i, j1, j2):
+            if j1 < 0 or j1 >= c or j2 < 0 or j2 >= c:
+                return float("-inf")
+            
+            if i == r - 1:
+                if j1 == j2:
+                    return grid[i][j1]
+                return grid[i][j1] + grid[i][j2]
+            
+            if dp[i][j1][j2]!=-1:
+                return dp[i][j1][j2]
+            
+            if j1 == j2:
+                current = grid[i][j1]
+            else:
+                current = grid[i][j1] + grid[i][j2]
     
+            maxi = float("-inf")
+    
+            for new_j1 in range(-1, 2):
+                for new_j2 in range(-1, 2):
+                    ans = current + Memoization(
+                        i + 1,
+                        j1 + new_j1,
+                        j2 + new_j2
+                    )
+                    maxi = max(maxi, ans)
+            dp[i][j1][j2] = maxi
+            return dp[i][j1][j2]
+
+    def Tabulation():
+        pass
+    
+    return Memoization(0, 0, c - 1)
 
 ans = cherryPickup([[3,1,1],[2,5,1],[1,5,5],[2,1,1]])
 print(ans)
@@ -235,3 +273,4 @@ def reverseDegreeOfString(val):
     return total
 ans = reverseDegreeOfString("abc")
 print(ans)
+

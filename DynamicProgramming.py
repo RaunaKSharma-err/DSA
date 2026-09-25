@@ -323,3 +323,11 @@ def minOperation(nums,x):
 ans = minOperation([1,1,4,2,3],5)
 print(ans)
 
+def smallestIndex(nums):
+    for i, n in enumerate(nums):
+        if sum(map(int, str(n))) == i:
+            return i
+    return -1
+
+ans = smallestIndex([1,10,11])
+print(ans)

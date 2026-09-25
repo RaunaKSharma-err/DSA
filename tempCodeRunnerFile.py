@@ -1,15 +1,12 @@
-from collections import deque
-def minOperation(nums,x):
-    count =0
-    num = deque(nums)
-    while x!=0:
-        if x >= num[0] >= num[-1]:
-            x -=num[0]
-            num.popleft()
+def smallestIndex(nums):
+    sum=0
+    for n in nums:
+        if nums[n]==n:
+            return n
         else:
-            x-= num[-1]
-            num.pop()
-        count+=1
-    return count
-ans = minOperation([1,1,4,2,3],5)
+            for i in str(n):
+                sum += int(i)
+            if sum == n:
+                return n
+ans = smallestIndex([1,10,11])
 print(ans)

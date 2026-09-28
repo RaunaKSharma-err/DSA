@@ -331,3 +331,99 @@ def smallestIndex(nums):
 
 ans = smallestIndex([1,10,11])
 print(ans)
+
+def subsetWithSumK(nums,target):
+
+    def Recursion(index,total):
+        if index == 0:
+            if total == 0 and nums[0]==0:
+                return 2
+            if total ==0 or nums[0]==total:
+                return 1
+            return 0
+        if total < nums[index]:
+            pick = 0
+        else: 
+            pick = subsetWithSumK(index-1,total-nums[index])
+        notpick = subsetWithSumK(index-1,total)
+        return pick+notpick
+
+    dp = [[-1 for _ in range(7)] for _ in range(len(nums))]
+    def Memoization(index,total):
+            if index == 0:
+                if total == 0 and nums[0]==0:
+                    return 2
+                if total ==0 or nums[0]==total:
+                    return 1
+                return 0
+            if dp[index][total]!= -1:
+                return dp[index][total]
+            if total < nums[index]:
+                pick = 0
+            else: 
+                pick = subsetWithSumK(index-1,total-nums[index])
+            notpick = subsetWithSumK(index-1,total)
+            dp[index][total] = pick+notpick
+            return dp[index][total]
+
+    def Tabulation(nums,target):
+        n = len(nums)
+        dp = [[0 for _ in range(target+1)]for _ in range(n)]
+        if nums[0] == 0:
+            dp[0][0]=2
+        else:
+            dp[0][0]=1
+            if nums[0]<= target:
+                dp[0][nums[0]]=1
+        for index in range(1,n):
+            for total in range(0,target+1):
+                if total < nums[index]:
+                    pick = 0
+                else: 
+                    pick = dp[index-1][total-nums[index]]
+                notpick = dp[index-1][total]
+                dp[index][total] = pick+notpick
+        return dp[n-1][target]
+
+    def SpaceOptimization(nums,target):
+            n = len(nums)
+            prev = [0 for _ in range(target+1)]
+            if nums[0] == 0:
+                prev[0]=2
+            else:
+                prev[0]=1
+                if nums[0]<= target:
+                    prev[nums[0]]=1
+            for index in range(1,n):
+                curr=[0 for _ in range(target+1)]
+                for total in range(0,target+1):
+                    if total < nums[index]:
+                        pick = 0
+                    else: 
+                        pick = prev[total-nums[index]]
+                    notpick = prev[total]
+                    curr[total] = pick+notpick
+                prev = curr
+            return prev[target]
+    return SpaceOptimization(nums,target)
+
+nums = [3,2,1,0]
+ans = subsetWithSumK(nums,6)
+print(ans)
+
+def evaluate(s,knowledge):
+    knowledge = dict(knowledge)
+    result = []
+    i = 0
+    while i < len(s):
+        if s[i] == '(':
+            j = s.index(')', i)
+            key = s[i + 1:j]
+            result.append(knowledge.get(key, '?'))
+            i = j + 1
+        else:
+            result.append(s[i])
+            i += 1
+    return ''.join(result)
+ans = evaluate("(name)is(age)yearsold",[["name","bob"],["age","two"]])
+print(ans)

@@ -427,3 +427,14 @@ def evaluate(s,knowledge):
     return ''.join(result)
 ans = evaluate("(name)is(age)yearsold",[["name","bob"],["age","two"]])
 print(ans)
+
+def maximumParanthesisDepth(s):
+    depth=max_depth=0
+    for ch in s:
+        if ch=="(":
+            depth+=1
+            max_depth = max(max_depth,depth)
+        elif ch==")":
+            depth-=1
+    return max_depth
+print(maximumParanthesisDepth("(1+(2*3)+((8)/4))+1"))

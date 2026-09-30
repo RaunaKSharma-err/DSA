@@ -438,3 +438,77 @@ def maximumParanthesisDepth(s):
             depth-=1
     return max_depth
 print(maximumParanthesisDepth("(1+(2*3)+((8)/4))+1"))
+
+def knapsack(index,target,weight,val):
+    def recursion(index,total,max_val):
+        if total < 0:
+            return 0
+        if index < 0:
+            return max_val
+        pick = solve(index-1,total-weight[index],max_val+val[index])
+        notpick = solve(index-1,total,max_val)
+        return max(pick , notpick)
+
+    def memoization(index,total,max_val,dp):
+        if total < 0:
+            return 0
+        if index < 0:
+            return max_val
+        if dp[index][total]!=-1:
+            return dp[index][total]
+        pick = memoization(index-1,total-weight[index],max_val+val[index],dp)
+        notpick = memoization(index-1,total,max_val,dp)
+        dp[index][total] = max(pick , notpick)
+        return dp[index][total]
+
+    def tabulation(n,target,weight,val):
+        for i in range(0,target+1):
+            if weight[0] <= i:
+                dp[0][i] = val[0]
+        for index in range(1,n):
+            for w in range(0,target+1):
+                if weight[index] > w:
+                    pick = float("-inf")
+                else:
+                    pick = val[index]+dp[index-1][w-weight[index]]
+                notpick = dp[index-1][w]
+                dp[index][w] = max(pick , notpick)
+        return dp[n-1][target]
+
+    def spaceOptimization(n,target,weight,val):
+        prev = [0 for _ in range(target+1)]
+        for i in range(0,target+1):
+            if weight[0] <= i:
+                prev[i] = val[0]
+        for index in range(1,n):
+            for w in range(target,-1,-1):
+                if weight[index] > w:
+                    pick = float("-inf")
+                else:
+                    pick = val[index]+prev[w-weight[index]]
+                prev[w] = max(pick , prev[w])
+        return prev[target]
+weight=[3,2,5]
+val=[30,40,60]
+dp = [[0 for _ in range(target+1)]for _ in range(len(weight))]
+print(knapsack(len(weight),6,weight,val))
+
+def decodeString(s):
+    stack = []
+    prevString = ""
+    repeatCount=0
+    for ch in s:
+        if ch.isdigit():
+            repeatCount = repeatCount*10+int(ch)
+        elif ch =="[":
+            stack.append((repeatCount,prevString))
+            prevString=""
+            repeatCount=0
+        elif ch=="]":
+            repeat,prev = stack.pop()
+            prevString = prev+prevString*repeat
+        else:
+            prevString += ch
+    return prevString
+
+print(decodeString("3[a]2[bc]"))

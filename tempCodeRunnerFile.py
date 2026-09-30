@@ -1,10 +1,20 @@
-def maximumParanthesisDepth(s):
-    count=maxi=0
+from collections import deque
+def decodeString(s):
+    stack = deque([])
+    prevString = ""
+    repeatCount=0
     for ch in s:
-        if ch=="(":
-            count+=1
-        if ch==")":
-            count-=1
-        maxi = max(maxi,count)
-    return maxi
-print(maximumParanthesisDepth("(1+(2*3)+((8)/4))+1"))
+        if ch.isdigit():
+            repeatCount = repeatCount*10+int(ch)
+        elif ch =="[":
+            stack.append((repeatCount,prevString))
+            prevString=""
+            repeatCount=0
+        elif ch=="]":
+            m,n = stack.pop()
+            prevString = n+prevString*m
+        else:
+            prevString += ch
+    return prevString
+
+print(decodeString("3[a]2[bc]"))

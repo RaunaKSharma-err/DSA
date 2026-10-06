@@ -584,7 +584,7 @@ def predictTheWinner(nums):
             dp[left][right] = max(take_left,take_right)
             return dp[left][right]
 
-    def Tabulation(left,right):
+    def Tabulation(nums):
         n = len(nums)
         dp = nums[:]
         for length in range(2, n + 1):
@@ -593,6 +593,6 @@ def predictTheWinner(nums):
                 dp[left] = max(nums[left] - dp[left + 1],nums[right] - dp[left])
         return dp[0] >= 0
     
-    return Memoization(0,len(nums)-1)
+    return Tabulation(nums)
 nums = [1,5,233,7]
 print(predictTheWinner(nums))

@@ -564,3 +564,35 @@ def longestCommonSubsequence(text1,text2):
     return SpaceOptimization(text1,text2)
     
 print(longestCommonSubsequence("ac","acexyzh"))
+
+def predictTheWinner(nums):
+    def Recursion(left,right):
+        if left == right:
+            return nums[left]
+        take_left = nums[left]-Recursion(left+1,right)
+        take_right = nums[right]-Recursion(left,right-1)
+        return max(take_left,take_right)
+
+    dp=[[-1 for _ in range(len(nums))]for _ in range(len(nums))]
+    def Memoization(left,right):
+            if left == right:
+                return nums[left]
+            if dp[left][right]!=-1:
+                return dp[left][right]
+            take_left = nums[left]-Memoization(left+1,right)
+            take_right = nums[right]-Memoization(left,right-1)
+            dp[left][right] = max(take_left,take_right)
+            return dp[left][right]
+
+    def Tabulation(left,right):
+        n = len(nums)
+        dp = nums[:]
+        for length in range(2, n + 1):
+            for left in range(n - length + 1):
+                right = left + length - 1
+                dp[left] = max(nums[left] - dp[left + 1],nums[right] - dp[left])
+        return dp[0] >= 0
+    
+    return Memoization(0,len(nums)-1)
+nums = [1,5,233,7]
+print(predictTheWinner(nums))

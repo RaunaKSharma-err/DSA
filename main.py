@@ -863,3 +863,18 @@ def solve(n):
     return ["".join(row) for row in result]
 ans = solve(4)
 print(ans)
+
+def minAddToMakeValid(s):
+    closeNeeded=0
+    add=0
+    for ch in s:
+        if ch == "(":
+            closeNeeded+=1
+        else:
+            if closeNeeded > 0:
+                closeNeeded -= 1
+            else:
+                add += 1
+    return add + closeNeeded
+
+print(minAddToMakeValid("())("))

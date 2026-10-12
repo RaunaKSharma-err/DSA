@@ -651,7 +651,66 @@ def longestSubArray(s1,s2):
             return maxi
         
     return spaceOptimization(s1,s2)
-
-
 print(longestSubArray("abxyzcd","123xyz456"))
 
+def longestPalindromeSequence(s):
+    maxi = 0
+    def Recursion(index,res):
+        nonlocal maxi
+        if index >= len(s):
+            if res == res[::-1]:
+                maxi = max(maxi,len(res))
+            return
+        res.append(s[index])
+        Recursion(index+1,res)
+        res.pop()
+        Recursion(index+1,res)
+
+    dp = [-1 for _ in range(len(s)+1)]
+    def Memoization(index,res):
+        if index >= len(s):
+            if res == res[::-1]:
+                dp[-1] = max(dp[-1],len(res))
+            return
+        if dp[index]!=-1:
+            return dp[index]
+        res.append(s[index])
+        Memoization(index+1,res)
+        res.pop()
+        Memoization(index+1,res)
+
+    def SpaceOptimization(text1,text2):
+        m = len(text1)
+        n = len(text2)
+        prev = [-1 for _ in range(n+1)]
+        for i in range(n):
+            prev[i]=0
+        for index1 in range(1,m+1):
+            curr = [-1 for _ in range(n+1)]
+            for index2 in range(1,n+1):
+                if text1[index1-1]==text2[index2-1]:
+                    curr[index2]= 1 + prev[index2-1]
+                else:
+                    curr[index2] = max(prev[index2],curr[index2-1])
+            prev=curr
+        return prev[n]
+    return SpaceOptimization(s,s[::-1])
+
+print(longestPalindromeSequence("aabaaba"))
+
+def MinimumDeletionToMakeStringEqual(text1,text2):
+    m = len(text1)
+    n = len(text2)
+    prev = [0 for _ in range(n+1)]
+    for i in range(n):
+        prev[i]=0
+    for index1 in range(1,m+1):
+        curr = [0 for _ in range(n+1)]
+        for index2 in range(1,n+1):
+            if text1[index1-1]==text2[index2-1]:
+                curr[index2]= 1 + prev[index2-1]
+            else:
+                curr[index2] = max(prev[index2],curr[index2-1])
+        prev=curr
+    return m+n-(prev[n]*2)
+print(MinimumDeletionToMakeStringEqual("leetcode","etco"))

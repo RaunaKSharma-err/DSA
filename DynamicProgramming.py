@@ -714,3 +714,71 @@ def MinimumDeletionToMakeStringEqual(text1,text2):
         prev=curr
     return m+n-(prev[n]*2)
 print(MinimumDeletionToMakeStringEqual("leetcode","etco"))
+
+def stockBuyAndSell(prices):
+    def Recursion(day,buy):
+        if day == len(prices):
+            return 0
+        if buy == 0:
+            buyStock = -prices[day]+Recursion(day+1,1)
+            leaveStock = 0+Recursion(day+1,0)
+            profit = max(buyStock,leaveStock)
+        else:
+            saleStock = prices[day]+Recursion(day+1,0)
+            leaveSales = 0+Recursion(day+1,1)
+            profit = max(saleStock,leaveSales)
+        return profit
+    
+    def Memoization(day,buy):
+        if day == len(prices):
+            return 0
+        if dp[day][buy]!=-1:
+            return dp[day][buy]
+        if buy == 0:
+            buyStock = -prices[day]+Memoization(day+1,1)
+            leaveStock = 0+Memoization(day+1,0)
+            dp[day][buy] = max(buyStock,leaveStock)
+        else:
+            saleStock = prices[day]+Memoization(day+1,0)
+            leaveSales = 0+Memoization(day+1,1)
+            dp[day][buy] = max(saleStock,leaveSales)
+        return dp[day][buy]
+
+    def Tabulation(prices):
+        n = len(prices)
+        dp = [[-1 , -1]for _ in range(n+1)]
+        dp[n][0]=0
+        dp[n][1]=0
+        for day in range(n-1,-1,-1):
+            for buy in range(0,2):
+                if buy == 1:
+                    buyStock = -prices[day]+dp[day+1][0]
+                    leaveStock = 0+dp[day+1][1]
+                    profit = max(buyStock,leaveStock)
+                else:
+                    saleStock = prices[day]+dp[day+1][1]
+                    leaveSales = dp[day+1][0]
+                    profit = max(saleStock,leaveSales)
+                dp[day][buy]=profit
+        return dp[0][1]
+
+    def SpaceOptimization(prices):
+            n = len(prices)
+            ahead = [0 ,0]
+            for day in range(n-2):
+                curr = [0,0]
+                for buy in range(2):
+                    if buy == 0:
+                        buyStock = -prices[day]+ahead[buy]
+                        leaveStock = ahead[buy]
+                        curr[buy] = max(buyStock,leaveStock)
+                    else:
+                        saleStock = prices[day]+ahead[buy]
+                        leaveSales = ahead[buy]
+                        curr[buy] = max(saleStock,leaveSales)
+                ahead = curr
+            return curr[buy]
+    
+    return SpaceOptimization(prices)
+
+print(stockBuyAndSell([7,1,5,3,6,4]))

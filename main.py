@@ -898,3 +898,16 @@ def minOperations(nums):
         ans = min(ans, n - zero)
     return -1 if ans == float("inf") else ans
 print(minOperations([1,0,2]))
+
+def reverseWords(s):
+    return " ".join(s.split()[::-1])
+    # res=""
+    # temp = ""
+    # for i in range(len(s)):
+    #     if s[i] == " ":
+    #         res = temp+s[i]+res
+    #         temp=""
+    #         continue
+    #     temp += s[i]
+    # return temp+" "+res
+print(reverseWords("i am raunak sharma"))

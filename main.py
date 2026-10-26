@@ -918,3 +918,16 @@ def largestOddNumber(num):
             return num[:i+1]
     return ""
 print(largestOddNumber("35427"))
+
+def isIsomorphic(s,t):
+    hashmapStoT = {}
+    hashmapTtoS = {}
+    for a, b in zip(s, t):
+        if a in hashmapStoT and hashmapStoT[a] != b:
+            return False
+        if b in hashmapTtoS and hashmapTtoS[b] != a:
+            return False
+        hashmapStoT[a] = b
+        hashmapTtoS[b] = a
+    return True
+print(isIsomorphic("badc","baba"))

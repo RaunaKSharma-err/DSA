@@ -1,6 +1,4 @@
-def largestOddNumber(num):
-    for i in range(len(num)-1,-1,-1):
-        if int(num[i])%2!=0:
-            return num[:i+1]
-    return ""
-print(largestOddNumber("35427"))
+c=[1,2,3]
+d=[4,5,6]
+for a , b in c , d:
+    print(a,b)

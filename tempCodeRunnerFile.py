@@ -1,12 +1,14 @@
-def findTheDistanceValue(arr1,arr2,d):
-    count=0
-    for i in range(len(arr1)):
-        valid = True
-        for j in range(len(arr2)):
-            if abs(arr1[i]-arr2[j]) <= d:
-                valid= False
-                break
-        if valid:
-            count+=1
-    return count
-print(findTheDistanceValue([4,5,8],[10,9,1,8],2))
+def countServers(n, logs, x, queries):
+    result=[]
+    for query in queries:
+        n = n
+        hash_map= {}
+        for id,time in logs:
+            if query-x <= time <= query:
+                if id not in hash_map:
+                    hash_map[id]=1
+                    n-=1
+        result.append(n)
+    return result
+
+print(countServers(3,[[2,4],[2,1],[1,2],[3,1]],2,[3,4]))

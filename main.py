@@ -989,3 +989,21 @@ def countServers(n, logs, x, queries):
     return result
 
 print(countServers(3,[[2,4],[2,1],[1,2],[3,1]],2,[3,4]))
+
+def nextPermutation(nums):
+    n = len(nums) - 1
+    right = n
+    while right > 0 and nums[right] <= nums[right-1]:
+        right -= 1
+    if right > 0:
+        pivot = right - 1
+        for i in range(n, pivot, -1):
+            if nums[i] > nums[pivot]:
+                nums[i], nums[pivot] = nums[pivot], nums[i]
+                break
+    left = right
+    r = n
+    while left < r:
+        nums[left], nums[r] = nums[r], nums[left]
+        left += 1
+        r -= 1

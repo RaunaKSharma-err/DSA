@@ -1,8 +1,14 @@
-def minChanges(s):
-    changes = 0
-    for i in range(len(s)-1):
-        if s[i] != s[i+1]:
-            changes += 1
-    return changes
+def minimizeSum(nums):
+    # mini = float("+inf")
+    # maxi = float("-inf")
+    # for i in range(len(nums)-1):
+    #     if nums[i] == nums[i-1]:
+    #         continue
+    #     for j in range(i+1,len(nums)):
+    #         mini = min(mini,abs(nums[i]-nums[j]))
+    #         maxi = max(maxi,abs(nums[i]-nums[j]))
 
-print(minChanges("0000"))
+    nums = sorted(nums)
+    return nums[len(nums)-1]-nums[2]
+
+print(minimizeSum([9,2, 3]))

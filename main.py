@@ -1151,3 +1151,12 @@ def minChanges(s):
     return changes
 
 print(minChanges("0000"))
+
+def minimizeSum(nums):
+    n = len(nums)-1
+    if len(nums) <= 3:
+        return 0
+    nums.sort()
+    return min(nums[n]-nums[2],nums[n-2]-nums[0],nums[n]-nums[1],nums[n-1] - nums[0])
+
+print(minimizeSum([9,2, 3]))

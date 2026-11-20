@@ -1160,3 +1160,25 @@ def minimizeSum(nums):
     return min(nums[n]-nums[2],nums[n-2]-nums[0],nums[n]-nums[1],nums[n-1] - nums[0])
 
 print(minimizeSum([9,2, 3]))
+
+from functools import lru_cache
+def isMatch(s,p):
+    @lru_cache(None)
+    def match(i, j):
+        if i < 0 and j < 0:
+            return True
+        if j < 0:
+            return False
+        if p[j] == "*":
+            zero = match(i, j-2)
+            if i >= 0 and (p[j-1] == "." or s[i] == p[j-1]):
+                multiple = match(i-1, j)
+                return zero or multiple
+            return zero
+        if i >= 0 and (p[j] == "." or s[i] == p[j]):
+            return match(i-1, j-1)
+        return False
+    return match(len(s)-1, len(p)-1)
+
+
+print(isMatch("abbb","ab*"))

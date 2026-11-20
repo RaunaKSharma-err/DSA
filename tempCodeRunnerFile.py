@@ -1,14 +1,22 @@
-def minimizeSum(nums):
-    # mini = float("+inf")
-    # maxi = float("-inf")
-    # for i in range(len(nums)-1):
-    #     if nums[i] == nums[i-1]:
-    #         continue
-    #     for j in range(i+1,len(nums)):
-    #         mini = min(mini,abs(nums[i]-nums[j]))
-    #         maxi = max(maxi,abs(nums[i]-nums[j]))
 
-    nums = sorted(nums)
-    return nums[len(nums)-1]-nums[2]
+from functools import lru_cache
+def isMatch(s,p):
+    # @lru_cache(None)
+    def match(i, j):
+        if i < 0 and j < 0:
+            return True
+        if j < 0:
+            return False
+        if p[j] == "*":
+            zero = match(i, j-2)
+            if i >= 0 and (p[j-1] == "." or s[i] == p[j-1]):
+                multiple = match(i-1, j)
+                return zero or multiple
+            return zero
+        if i >= 0 and (p[j] == "." or s[i] == p[j]):
+            return match(i-1, j-1)
+        return False
+    return match(len(s)-1, len(p)-1)
 
-print(minimizeSum([9,2, 3]))
+
+print(isMatch("abbb","ab*"))

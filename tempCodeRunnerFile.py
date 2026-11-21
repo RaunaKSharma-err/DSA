@@ -1,22 +1,30 @@
+def findSubtreeSizes(parent, s):
+    n = len(parent)
+    children = [[] for _ in range(n)]
+    for i in range(1, n):
+        children[parent[i]].append(i)
+    adj = [[] for _ in range(n)]
+    last = {}
+    def build(node):
+        ch = s[node]
+        new_parent = last.get(ch, parent[node])
+        if node != 0:
+            adj[new_parent].append(node)
+        previous = last.get(ch)
+        last[ch] = node
+        for child in children[node]:
+            build(child)
+        if previous is None:
+            del last[ch]
+        else:
+            last[ch] = previous
+    build(0)
+    ans = [1] * n
+    def dfs(node):
+        for child in adj[node]:
+            dfs(child)
+            ans[node] += ans[child]
+    dfs(0)
+    return ans
 
-from functools import lru_cache
-def isMatch(s,p):
-    # @lru_cache(None)
-    def match(i, j):
-        if i < 0 and j < 0:
-            return True
-        if j < 0:
-            return False
-        if p[j] == "*":
-            zero = match(i, j-2)
-            if i >= 0 and (p[j-1] == "." or s[i] == p[j-1]):
-                multiple = match(i-1, j)
-                return zero or multiple
-            return zero
-        if i >= 0 and (p[j] == "." or s[i] == p[j]):
-            return match(i-1, j-1)
-        return False
-    return match(len(s)-1, len(p)-1)
-
-
-print(isMatch("abbb","ab*"))
+print(findSubtreeSizes([-1,0,0,1,1,1],"abaabc"))

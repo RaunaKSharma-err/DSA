@@ -1161,24 +1161,55 @@ def minimizeSum(nums):
 
 print(minimizeSum([9,2, 3]))
 
-from functools import lru_cache
 def isMatch(s,p):
-    @lru_cache(None)
-    def match(i, j):
-        if i < 0 and j < 0:
-            return True
-        if j < 0:
-            return False
-        if p[j] == "*":
-            zero = match(i, j-2)
-            if i >= 0 and (p[j-1] == "." or s[i] == p[j-1]):
-                multiple = match(i-1, j)
-                return zero or multiple
-            return zero
-        if i >= 0 and (p[j] == "." or s[i] == p[j]):
-            return match(i-1, j-1)
-        return False
-    return match(len(s)-1, len(p)-1)
-
+    m, n = len(s), len(p)
+    prev = [False] * (n + 1)
+    prev[0] = True
+    for j in range(2, n + 1):
+        if p[j-1] == '*':
+            prev[j] = prev[j-2]
+    for i in range(1, m + 1):
+        curr = [False] * (n + 1)
+        for j in range(1, n + 1):
+            if p[j-1] == '.' or p[j-1] == s[i-1]:
+                curr[j] = prev[j-1]
+            elif p[j-1] == '*':
+                curr[j] = curr[j-2]
+                if p[j-2] == '.' or p[j-2] == s[i-1]:
+                    curr[j] = curr[j] or prev[j]
+        prev = curr
+    return prev[n]
 
 print(isMatch("abbb","ab*"))
+
+
+def findSubtreeSizes(parent, s):
+    n = len(parent)
+    children = [[] for _ in range(n)]
+    for i in range(1, n):
+        children[parent[i]].append(i)
+    adj = [[] for _ in range(n)]
+    last = {}
+    def build(node):
+        ch = s[node]
+        new_parent = last.get(ch, parent[node])
+        if node != 0:
+            adj[new_parent].append(node)
+        previous = last.get(ch)
+        last[ch] = node
+        for child in children[node]:
+            build(child)
+        if previous is None:
+            del last[ch]
+        else:
+            last[ch] = previous
+    build(0)
+    ans = [1] * n
+    def dfs(node):
+        for child in adj[node]:
+            dfs(child)
+            ans[node] += ans[child]
+    dfs(0)
+    return ans
+
+print(findSubtreeSizes([-1,0,0,1,1,1],"abaabc"))

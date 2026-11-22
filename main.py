@@ -1213,3 +1213,8 @@ def findSubtreeSizes(parent, s):
     return ans
 
 print(findSubtreeSizes([-1,0,0,1,1,1],"abaabc"))
+
+def checkString(s):
+    return "ba" not in s
+
+print(checkString("bbb"))

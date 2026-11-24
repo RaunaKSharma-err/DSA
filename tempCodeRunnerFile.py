@@ -1,25 +1,21 @@
-class ProductOfNumbers:
+import math
+def maxLength(nums):
+    n = len(nums)
+    maxi = 0
 
-    def __init__(self):
-        self.ans = [1]
+    for left in range(n):
+        gcd = nums[left]
+        lcm = nums[left]
+        product = 1
 
-    def add(self, num: int) -> None:
-        if num == 0:
-            self.ans = [1]
-        else:
-            self.ans.append(self.ans[-1]*num)
+        for right in range(left, n):
+            product *= nums[right]
+            gcd = math.gcd(gcd, nums[right])
+            lcm = math.lcm(lcm, nums[right])
 
-    def getProduct(self, k: int) -> int:
-        if k >= len(self.ans):
-            return 0
-        return self.ans[-1]
+            if product == gcd * lcm:
+                maxi = max(maxi, right - left + 1)
 
+    return maxi
 
-obj = ProductOfNumbers()
-obj.add(3);        
-obj.add(0);    
-obj.add(2);       
-obj.add(5);        
-obj.add(4);  
-param_2 = obj.getProduct(4)
-print(param_2)
+print(maxLength([2, 3, 4, 5, 6]))

@@ -1,13 +1,12 @@
-def smallestUniqueSubarray(nums):
-    hashMap = {nums[0]:1}
-    for i in range(1,len(nums)):
-        hashMap[nums[i]] = hashMap.get(nums[i],0)+1
-        hashMap[(nums[i-1],nums[i])] = hashMap.get((nums[i-1],nums[i]),0)+1
-    mini=float("inf")
-    for i in hashMap:
-        if mini > hashMap[i]:
-            mini = hashMap[i]
-            ans = i
-    return ans if isinstance(ans,int) else len(ans)
+def stoneRemovalGame(n):
+    if n < 10:
+        return False
+    for i in range(10,3,-1):
+        if n < i:
+            if i % 2 == 0:
+                return False
+            else:
+                return True
+        n-=i
 
-print(smallestUniqueSubarray([1,1,2,2,1]))
+print(stoneRemovalGame(1))

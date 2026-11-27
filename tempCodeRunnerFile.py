@@ -1,12 +1,4 @@
-def stoneRemovalGame(n):
-    if n < 10:
-        return False
-    for i in range(10,3,-1):
-        if n < i:
-            if i % 2 == 0:
-                return False
-            else:
-                return True
-        n-=i
+def maximumSaleItems(items, budget):
+    return sorted(items,key=lambda row:row[1])
 
-print(stoneRemovalGame(1))
+print(maximumSaleItems([[12, 4],[2, 4], [3, 2], [4, 1], [6, 4]],8))

@@ -1295,6 +1295,93 @@ def stoneRemovalGame(n):
 print(stoneRemovalGame(1))
 
 def maximumSaleItems(items, budget):
-    return sorted(items,key=lambda row:row[1])
+    n = len(items)
+    def recursion(index,budgets):
+        if index == n:
+            return 0
+        price = items[index][1]
+        factor= items[index][0]
+        no_of_copies = budgets//price
+        max_items = 0
+        for copies in range(no_of_copies+1):
+            free_copies = 0
+            remaining = budgets-(copies*price)
+            if copies > 0:
+                for j in range(n):
+                    if items[j][0] % factor == 0 and j != index:
+                        free_copies += 1  
+            current = free_copies + copies + recursion(index+1,remaining)
+            max_items = max(max_items,current)            
+        return max_items
 
-print(maximumSaleItems([[12, 4],[2, 4], [3, 2], [4, 1], [6, 4]],8))
+    dp = dp = [[-1] * (budget + 1) for _ in range(n)]
+    def memoization(index,budgets):
+        if index == n:
+            return 0
+        if dp[index][budgets]!=-1:
+            return dp[index][budgets]
+        price = items[index][1]
+        factor= items[index][0]
+        no_of_copies = budgets//price
+        max_items = 0
+        for copies in range(no_of_copies+1):
+            free_copies = 0
+            remaining = budgets-(copies*price)
+            if copies > 0:
+                for j in range(n):
+                    if items[j][0] % factor == 0 and j != index:
+                        free_copies += 1  
+            current = free_copies + copies + memoization(index+1,remaining)
+            max_items = max(max_items,current)            
+        dp[index][budgets] = max_items
+        return dp[index][budgets]
+
+    def tabulation(items,budgets):
+        dp = [[0] * (budgets + 1) for _ in range(n + 1)]
+        for index in range(n - 1, -1, -1):
+            price = items[index][1]
+            factor = items[index][0]
+            for b in range(budgets + 1):
+                no_of_copies = b // price
+                max_items = 0
+                for copies in range(no_of_copies + 1):
+                    free_copies = 0
+                    remaining = b - copies * price
+                    if copies > 0:
+                        for j in range(n):
+                            if items[j][0] % factor == 0 and j != index:
+                                free_copies += 1
+                    current = free_copies + copies + dp[index + 1][remaining]
+                    max_items = max(max_items, current)
+                dp[index][b] = max_items
+        return dp[0][budgets]
+        
+    def spaceOptimization(items,budget):
+        n = len(items)
+        free = [0] * n
+        for i in range(n):
+            for j in range(n):
+                if i != j and items[j][0] % items[i][0] == 0:
+                    free[i] += 1
+        prev = [0] * (budget + 1)
+        for i in range(n):
+            price = items[i][1]
+            bonus = free[i] + 1
+            curr = [0] * (budget + 1)
+            for b in range(budget + 1):
+                curr[b] = prev[b]
+                if b >= price:
+                    curr[b] = max(
+                        curr[b],
+                        prev[b - price] + bonus
+                    )
+                    curr[b] = max(
+                        curr[b],
+                        curr[b - price] + 1
+                    )
+            prev = curr
+        return prev[budget]
+    
+    return spaceOptimization(items,budget)
+
+print(maximumSaleItems([[6,2],[2,6],[3,4]],9))
